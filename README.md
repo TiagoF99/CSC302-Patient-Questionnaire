@@ -1,6 +1,11 @@
 # CSC302-Patient-Questionnaire
 This application's purpose is to display FHIR Questionnaires, and submit them to a test FHIR server.
 
+# Guide to this Repo
+Please find our  meeting notes, documentation, tech stack discussion and development roadmap within the Documents directory.
+Continue reading this README to see what commands to run to install our project on your machines.
+
+
 # Getting Set Up
 Once this repository has been cloned, ensure that you have Docker downloaded. If not, please download it for this step.
 

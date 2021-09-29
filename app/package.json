@@ -1,10 +1,12 @@
 {
   "dependencies": {
+    "jest": "^27.2.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "scripts": {
-    "start": "parcel index.html"
+    "start": "parcel index.html",
+    "test": "jest"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",

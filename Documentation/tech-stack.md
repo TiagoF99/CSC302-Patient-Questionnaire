@@ -37,6 +37,6 @@ $~$
 
 $~$
 ## Additional reasoning
-Quick setup time so we can get to work on implementation ASAP
+- Quick setup time so we can get to work on implementation ASAP
 - Lots of support for libraries and packages especially on the UI side of things
-Jest was a no-brainer here as it’s the most popular and well supported testing library for JS projects.
+- Jest was a no-brainer here as it’s the most popular and well supported testing library for JS projects.

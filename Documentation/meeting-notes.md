@@ -18,3 +18,10 @@
     - Discussed a development plan that will feature three milestones that we will attempt to meet
     - Discussed a tech stack that the team is comfortable with and that will work well with the expectations of the project
 - Decided that we will meet once a week to discuss team progress so that we can all align eachother on what we are each working on
+
+### Sept 30
+- Met with the TA to discuss:
+    - How we as individuals are feeling about the course
+    - If we have met to discuss A1 and team roles and expectations for future work and meetings
+ - Met async with the industry partner for our project and had him look over our milestones for the project to verify that it is both fair and realistic within the given time frame
+     - He agreed that we set out a good plan for the rest of the semester and gave good tips for some of the stuff we wrote 

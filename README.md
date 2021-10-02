@@ -10,13 +10,17 @@ Continue reading this README to see what commands to run to install our project 
 Once this repository has been cloned, ensure that you have Docker downloaded. If not, please download it for this step.
 
 ## Running the Application
-To run our project, just run this command! It will make sure no docker image is left over as well
+To run our project, install [Docker](https://www.docker.com/) for your machine!
+
+Start up the docker container
 ```
-docker run --rm -it $(docker build -q .)
+docker-compose up
 ```
+Then you can goto (http://localhost:8080) and see the app's main page.
 
 ## Running Tests
-We use Jest for our testing, and to run our tests, it's as simple as running
+
+Run the tests in the docker container.
 ```
-npm test
+docker-compose -p tests run --rm main npm run test 
 ```

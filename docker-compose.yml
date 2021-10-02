@@ -1,0 +1,7 @@
+version: '2'
+services:
+  main:
+    build: .
+    command: npm run server
+    ports:
+      - "8080:8080"

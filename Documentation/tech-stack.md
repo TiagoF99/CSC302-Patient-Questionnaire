@@ -40,3 +40,10 @@ $~$
 - Quick setup time so we can get to work on implementation ASAP
 - Lots of support for libraries and packages especially on the UI side of things
 - Jest was a no-brainer here as it’s the most popular and well supported testing library for JS projects.
+
+$~$
+## Other options we considered
+### Angular Front End
+  - The main reason we didn't choose Angular is that most of the us on the team have none/limited experience. Given that there's no real benefits we can come up with, the risk it takes to go with a foreign technology comes with too many roadblocks for us to justify it. 
+### Python Back End
+  - We heavily considered a Python server framework (Flask or Django) to use for our project due to it's quick and easy setup, ease of unit testing, and for our familiarity with python. Ultimately, we chose to use Nodejs and Express as we felt keeping a full stack JavaScript environment was quite powerful (JS for front and backend has a lot of benefits such as compatibility, easier debugging, speed, etc.). Also, it's compatible with what Purajuniper is using. There was nothing particulary wrong with Python, the alternative was just better.

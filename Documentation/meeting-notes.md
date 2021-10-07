@@ -25,3 +25,11 @@
     - If we have met to discuss A1 and team roles and expectations for future work and meetings
  - Met async with the industry partner for our project and had him look over our milestones for the project to verify that it is both fair and realistic within the given time frame
      - He agreed that we set out a good plan for the rest of the semester and gave good tips for some of the stuff we wrote 
+
+### Oct 07
+- Met with TA Julia:
+    - Talked about A1 marking and what we can expect in terms of A2
+    - Discussed how each group member felt about A1 and their own individual contributions and next steps
+- Concerns:
+    - Very similar open source tools already exist that do what we are trying to accomplish with this project. We do not think we will be able to build a better tool compared to those given we have such a limited amount of time.  
+

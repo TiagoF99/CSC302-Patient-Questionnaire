@@ -33,3 +33,32 @@
 - Concerns:
     - Very similar open source tools already exist that do what we are trying to accomplish with this project. We do not think we will be able to build a better tool compared to those given we have such a limited amount of time.  
 
+### Oct 13
+
+- Reassessing and confirming goals/features discussed in a1
+- Took a look at Formik docs, confirmed that it fits our use case
+- Next steps:
+    - Rishab will read up on FHIR
+        - Complete by: Oct 20
+    - Rish/Pat setup query to get Questionnaires and pass to frontend
+        - Validate response from server
+        - Test
+        - Complete by: Oct 25
+    - Kevin setup initial landing page and search bar/dropdown so user can select a questionnaire
+        - Hardcode list of questionnaires at first until step 2 is complete
+        - Complete by: Oct 27
+    - Kevin: Integrate Questionnaire list using id’s from step 2
+        - Test
+        - Complete by: Oct 28
+    - Rish/Pat setup query to get questionnaire based on ID selected by user in frontend 
+        - Can be a hardcoded ID in beginning so not blocked 
+        - Complete once step 4 is done
+        - Complete by: Oct 31
+    - Tiago: setup page to render form components based on questionnaire Object selected
+        - Wait until 5 is completed 
+        - Complete by: Nov 4
+
+- Set up github issues for next steps: https://github.com/TiagoF99/CSC302-Patient-Questionnaire/issues
+- Potentially important resources we found:	
+https://docs.smarthealthit.org/client-js/
+https://github.com/Vermonster/fhir-kit-client

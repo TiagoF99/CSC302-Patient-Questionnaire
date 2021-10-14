@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 
-import Status from './components/status';
+import Main from './components/main';
 
-const App: React.FunctionComponent<{}> = () => <><Status /></>;
+const App: React.FunctionComponent<{}> = () => <><Main /></>;
 
 render(<App />, document.getElementById('app'));

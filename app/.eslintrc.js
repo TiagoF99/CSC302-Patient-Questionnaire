@@ -4,10 +4,12 @@ module.exports = {
     es2021: true,
     jest: true,
   },
+  ignorePatterns: ['.eslintrc.js'],
   extends: ['plugin:react/recommended', 'airbnb', 'airbnb-typescript', 'plugin:prettier/recommended'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: ['./tsconfig.json'],  //required for "type-aware linting"
+    tsconfigRootDir: "app",
     ecmaFeatures: {
       jsx: true,
     },

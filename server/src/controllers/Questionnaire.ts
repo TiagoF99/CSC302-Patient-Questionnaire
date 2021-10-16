@@ -29,4 +29,49 @@ const getQuestionnaire = async (req: Request, res: Response) => {
   }
 };
 
-export { getQuestionnaire, getQuestionnaires };
+const getQuestionnairesPage = async (req: Request, res: Response) => {
+  try {
+    const response = await fhirClient.search({ resourceType: 'Questionnaire', searchParams: { _count: 10 } });
+    return res.json({ response });
+  } catch (err: any) {
+    return res.status(400).json({
+      error: `Failed to get paged questionnaires`,
+    });
+  }
+};
+
+const getPreviousQuestionnairesPage = async (req: Request, res: Response) => {
+  const { response } = JSON.parse(req.body);
+
+  try {
+    const prevPageResponse = await fhirClient.prevPage(JSON.parse(response));
+    return res.json({ response: prevPageResponse });
+  } catch (err: any) {
+    return res.status(400).json({
+      error: `Failed to get paged questionnaires`,
+    });
+  }
+};
+
+const getNextQuestionnairesPage = async (req: Request, res: Response) => {
+  const { response } = JSON.parse(req.body);
+  console.log(req.params);
+  console.log(response);
+
+  try {
+    const nextPageResponse = await fhirClient.nextPage(JSON.parse(response));
+    return res.json({ response: nextPageResponse });
+  } catch (err: any) {
+    return res.status(400).json({
+      error: `Failed to get paged questionnaires`,
+    });
+  }
+};
+
+export {
+  getQuestionnaire,
+  getQuestionnaires,
+  getQuestionnairesPage,
+  getPreviousQuestionnairesPage,
+  getNextQuestionnairesPage,
+};

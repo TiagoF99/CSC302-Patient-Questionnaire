@@ -8,8 +8,6 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     project: ['./tsconfig.json'],  //required for "type-aware linting"
-  },
-  parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },

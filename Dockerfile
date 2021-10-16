@@ -1,5 +1,7 @@
 FROM node:14
 
+ARG PORT
+
 WORKDIR /main
 
 COPY . .
@@ -10,7 +12,6 @@ RUN npm run build
 
 ENV NODE_ENV production
 
-EXPOSE 3000
-EXPOSE 8080
+EXPOSE $PORT
 
 CMD ["npm", "run", "server"]

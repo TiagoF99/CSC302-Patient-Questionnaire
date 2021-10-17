@@ -7,3 +7,8 @@
 	font-weight: 100;
 	font-size: 200%;
 }
+
+.fieldError {
+	color: red;
+	font-weight: bold;
+}

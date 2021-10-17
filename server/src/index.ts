@@ -24,5 +24,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.listen(port, () => {
+  // eslint-disable-next-line no-console
   console.log(`FHIR Questionnaire app listening at http://localhost:${port}`);
 });

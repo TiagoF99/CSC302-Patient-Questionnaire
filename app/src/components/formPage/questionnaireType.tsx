@@ -62,11 +62,14 @@ const getField = (obj: ItemType) => {
       </Field>
     );
   }
+  if (type === 'string' || type === 'text') {
+  	return <Field type="text" name={name} />;
+  }
 
   // string, text, open-choice
-  return <Field type="text" name={name} />;
+  return;
 
-  // TODO: missing integration of types choice, group, display, question
+  // TODO: missing integration of types choice, group, display, question, open-choice
 };
 
 // more information: https://www.hl7.org/fhir/datatypes.html

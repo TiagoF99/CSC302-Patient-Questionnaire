@@ -9,8 +9,6 @@ const getStatus = async () => {
     const res = await axios.get('/api/status');
     const statusResponse: StatusResponse = res.data;
 
-    console.log(res);
-
     return statusResponse.status;
   } catch (err) {
     return 'not running';

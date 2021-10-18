@@ -1,16 +1,19 @@
 import * as React from 'react';
-import { withFormik, FormikProps, FormikErrors, Form, Field, FieldProps } from 'formik';
-import formPage from './formPage.module.css';
-import { questionnaireType, itemType } from '../../api/questionnaire';
-import { MyFormProps, defaultValuesType } from './form';
+import { FormikProps, Field, FieldProps } from 'formik';
+import { ItemType, QuestionnaireType } from '../../api/questionnaire';
 
-const getField = (obj: itemType) => {
+export interface MyFormProps {
+  questionnaire: QuestionnaireType;
+}
+
+export interface DefaultValuesType {
+  [key: string]: any;
+}
+
+const getField = (obj: ItemType) => {
   const { type } = obj;
   const name = obj.linkId;
 
-  if (type === 'string' || type === 'text' || type === 'open-choice') {
-    return <Field type="text" name={name} />;
-  }
   if (type === 'boolean') {
     return (
       <Field name={name} component="select">
@@ -20,9 +23,8 @@ const getField = (obj: itemType) => {
     );
   }
   if (type === 'decimal') {
-    const CustomInputComponent: React.FC<MyFormProps & FormikProps<defaultValuesType> & FieldProps> = ({
+    const CustomInputComponent: React.FC<MyFormProps & FormikProps<DefaultValuesType> & FieldProps> = ({
       field,
-      form: { touched, errors },
       ...props
     }) => (
       <div>
@@ -49,10 +51,8 @@ const getField = (obj: itemType) => {
   if (type === 'attachment') {
     return <Field type="file" name={name} />;
   }
-  if (type === 'quantity') {
-  } else if (type === 'question') {
-  } else if (type === 'choice') {
-    const options = [];
+  if (type === 'choice') {
+    const options: any = [];
     (obj.answerOption || []).forEach((valueObj) => {
       options.push(<option value={valueObj.valueString}>{valueObj.valueString}</option>);
     });
@@ -63,11 +63,14 @@ const getField = (obj: itemType) => {
     );
   }
 
+  // string, text, open-choice
+  return <Field type="text" name={name} />;
+
   // TODO: missing integration of types choice, group, display, question
 };
 
 // more information: https://www.hl7.org/fhir/datatypes.html
-export const itemDefaultValue: defaultValuesType = {
+export const itemDefaultValue: DefaultValuesType = {
   string: '',
   text: '',
   'open-choice': '',

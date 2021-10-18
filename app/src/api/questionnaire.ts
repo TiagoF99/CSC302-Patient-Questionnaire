@@ -1,43 +1,43 @@
 import axios from 'axios';
 
-export interface questionnaireType {
+export interface QuestionnaireType {
   title: string;
   description: string;
   id: string;
-  item: Array<itemType>;
+  item: Array<ItemType>;
 }
 
-interface answerOptionType {
+interface AnswerOptionType {
   [key: string]: string;
 }
 
-export interface itemType {
+export interface ItemType {
   linkId: string;
   text: string;
   type: string;
   required?: boolean;
   prefix?: string;
-  answerOption?: Array<answerOptionType>;
-  item?: Array<itemType>;
+  answerOption?: Array<AnswerOptionType>;
+  item?: Array<ItemType>;
 }
 
-export interface groupItemType {
+export interface GroupItemType {
   linkId: string;
   text: string;
   type: string;
   required?: boolean;
   prefix?: string;
-  item: Array<itemType>;
+  item: Array<ItemType>;
 }
 
 const getQuestionnaire = async (id: string) => {
   try {
     const res = await axios.get(`/api/questionnaire/${id}`);
-    const questionnaireResponse: questionnaireType = res.data;
+    const questionnaireResponse: QuestionnaireType = res.data;
 
     return questionnaireResponse;
   } catch (err) {
-    const empty: questionnaireType = {
+    const empty: QuestionnaireType = {
       title: '',
       description: '',
       id: '',

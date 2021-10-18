@@ -9,7 +9,7 @@
   "scripts": {
     "start": "parcel ./src/index.html --port 3000",
     "test": "jest",
-    "lint": "eslint --ext ts,tsx src",
+    "lint": "eslint --ext ts,tsx src --fix",
     "build": "parcel build src/index.html --no-source-maps"
   },
   "proxy": "http://localhost:8080",

@@ -1,23 +1,14 @@
 import * as React from 'react';
-import { withFormik, FormikProps, FormikErrors, Form, Field, FieldProps } from 'formik';
+import { withFormik, FormikProps, FormikErrors, Form } from 'formik';
 import formPage from './formPage.module.css';
-import { questionnaireType, itemType, groupItemType } from '../../api/questionnaire';
-import getField, { itemDefaultValue } from './questionnaireType';
+import { ItemType } from '../../api/questionnaire';
+import getField, { itemDefaultValue, MyFormProps, DefaultValuesType } from './questionnaireType';
 
-// The type of props MyForm receives
-export interface MyFormProps {
-  questionnaire: questionnaireType;
-}
-
-export interface defaultValuesType {
-  [key: string]: any;
-}
-
-const generateQuestion = (obj: itemType, touched: defaultValuesType, errors: defaultValuesType) => {
+const generateQuestion = (obj: ItemType, touched: DefaultValuesType, errors: DefaultValuesType) => {
   return (
     <div>
       <div className={(obj.type === 'display' && formPage.qDisplay) || (obj.type === 'group' && formPage.qGroup)}>
-        {obj.hasOwnProperty('prefix') && <span>{obj.prefix}. </span>}
+        {'prefix' in obj && <span>{obj.prefix}. </span>}
         {obj.text}
       </div>
       <div>
@@ -30,9 +21,9 @@ const generateQuestion = (obj: itemType, touched: defaultValuesType, errors: def
   );
 };
 
-const generateForm = (items: Array<itemType>, touched: defaultValuesType, errors: defaultValuesType) => {
-  const questions = [];
-  items.forEach((item: itemType) => {
+const generateForm = (items: Array<ItemType>, touched: DefaultValuesType, errors: defaultValuesType) => {
+  const questions: any = [];
+  items.forEach((item: ItemType) => {
     if (item.type === 'group') {
       questions.push(generateQuestion(item, touched, errors)); // add div elements for group which may have items
 
@@ -46,7 +37,7 @@ const generateForm = (items: Array<itemType>, touched: defaultValuesType, errors
   return questions;
 };
 
-const InnerForm = (props: MyFormProps & FormikProps<defaultValuesType>) => {
+const InnerForm = (props: MyFormProps & FormikProps<DefaultValuesType>) => {
   const { touched, errors, isSubmitting, questionnaire } = props;
 
   return (
@@ -65,10 +56,10 @@ const InnerForm = (props: MyFormProps & FormikProps<defaultValuesType>) => {
   );
 };
 
-const findItemWithId = (id: string, items: Array<itemType>): defaultValuesType => {
+const findItemWithId = (id: string, items: Array<ItemType>): DefaultValuesType => {
   let found = false;
   let curr = items[0];
-  for (let i = 0; i < items.length; i++) {
+  for (let i = 0; i < items.length; i += 1) {
     const item = items[i];
 
     if (item.linkId === id) {
@@ -91,10 +82,10 @@ const findItemWithId = (id: string, items: Array<itemType>): defaultValuesType =
   };
 };
 
-const generateDefaultValues = (items: Array<itemType>) => {
-  let defaultValues: defaultValuesType = {};
+const generateDefaultValues = (items: Array<ItemType>) => {
+  let defaultValues: DefaultValuesType = {};
 
-  for (let i = 0; i < items.length; i++) {
+  for (let i = 0; i < items.length; i += 1) {
     const item = items[i];
     if (item.type === 'group') {
       const obj = generateDefaultValues(item.item || []);
@@ -112,7 +103,7 @@ const generateDefaultValues = (items: Array<itemType>) => {
 };
 
 // Wrap our form with the withFormik HoC
-const MyForm = withFormik<MyFormProps, defaultValuesType>({
+const MyForm = withFormik<MyFormProps, DefaultValuesType>({
   // Transform outer props into form values
   mapPropsToValues: (props) => {
     const items = props.questionnaire.item;
@@ -120,14 +111,13 @@ const MyForm = withFormik<MyFormProps, defaultValuesType>({
   },
 
   // Add a custom validation function (this can be async too!)
-  validate: (values: defaultValuesType, props) => {
-    console.log(values);
-    const errors: FormikErrors<defaultValuesType> = {};
+  validate: (values: DefaultValuesType, props) => {
+    const errors: FormikErrors<DefaultValuesType> = {};
     const valuesKeys = Object.keys(values);
 
     valuesKeys.forEach((key) => {
       const { item } = findItemWithId(key, props.questionnaire.item);
-      if (item.hasOwnProperty('required') && item.required && !values[key]) {
+      if ('required' in item && item.required && !values[key]) {
         errors[key] = 'Required';
       }
     });
@@ -137,7 +127,7 @@ const MyForm = withFormik<MyFormProps, defaultValuesType>({
 
   handleSubmit: (values) => {
     // do submitting things which only triggers once validate passes
-    console.log('values: ', values);
+    return values;
   },
 })(InnerForm);
 

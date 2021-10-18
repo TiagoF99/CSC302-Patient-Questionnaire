@@ -35,7 +35,9 @@ const FormPage = ({ setRenderFormPage }: { setRenderFormPage: Dispatcher<boolean
   return (
     <div>
       <MyForm questionnaire={questionnaire} />
-      <button onClick={goToMainPage}>go to the main page</button>
+      <button onClick={goToMainPage} type="button">
+        go to the main page
+      </button>
     </div>
   );
 };

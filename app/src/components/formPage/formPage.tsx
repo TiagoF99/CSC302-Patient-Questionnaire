@@ -28,7 +28,7 @@ const FormPage = ({ setRenderFormPage }: {setRenderFormPage: Dispatcher<boolean>
 		setRenderFormPage(false);
 	}
 
-	if (Object.keys(questionnaire).length === 0) { //empty object
+	if (questionnaire.id === '') { //empty object
 		return (
 		  <ErrorMessage />
 		);

@@ -1,113 +1,118 @@
 import * as React from 'react';
 import { withFormik, FormikProps, FormikErrors, Form, Field, FieldProps } from 'formik';
 import formPage from './formPage.module.css';
-import{ questionnaireType, itemType } from '../../api/questionnaire';
+import{ questionnaireType, itemType, groupItemType } from '../../api/questionnaire';
+import getField, { itemDefaultValue }from './questionnaireType';
 
 
-interface OtherProps {
+// The type of props MyForm receives
+export interface MyFormProps {
   questionnaire: questionnaireType;
 }
 
-const getField = (type: string, name: string) => {
-
-  if (type === "string" || type === "text" || type === "open-choice") {
-    return(
-      <Field type="text" name={name}/>
-    );
-  } else if (type === "boolean" ) {
-     <Field name={name} component="select">
-       <option value="true">Yes</option>
-       <option value="false">No</option>
-     </Field>
-  } else if (type === "decimal") {
-    const CustomInputComponent: React.FC<OtherProps & FormikProps<defaultValuesType> & FieldProps> = ({
-      field,
-      form: { touched, errors }, 
-       ...props
-     }) => (
-       <div>
-         <input type="number" step="0.01" {...field} {...props} />
-       </div>
-     );
-      return(
-        <Field name={name} component={CustomInputComponent} placeholder="Decimal Value (ex. 2.25)"/>
-      ); 
-  } else if (type === "integer") {
-    return(
-      <Field type="number" name={name}/>
-    );
-  } else if (type === "date") {
-    return(
-      <Field type="date" name={name}/>
-    );
-  } else if (type === "dateTime") {
-    return(
-      <Field type="datetime-local" name={name}/>
-    );
-  } else if (type === "time") {
-    return(
-      <Field type="time" name={name}/>
-    );
-  } else if (type === "url" || type === "reference") {
-    return(
-      <Field type="url" name={name}/>
-    );
-  } else if (type === "attachment") {
-    return(
-      <Field type="file" name={name}/>
-    );
-  } else if (type === "quantity") {
-    return; // will just output the text
-  } else if (type === "group") {
-    
-  } else if (type === "display") {
-    
-  } else if (type === "question") {
-    
-  } else if (type === "choice") {
-    
-  }
-
-  // TODO: missing integration of types choice, group, display, question
+export interface defaultValuesType {
+    [key: string]: any
 }
 
-// Aside: You may see InjectedFormikProps<OtherProps, FormValues> instead of what comes below in older code.. InjectedFormikProps was artifact of when Formik only exported a HoC. It is also less flexible as it MUST wrap all props (it passes them through).
-const InnerForm = (props: OtherProps & FormikProps<defaultValuesType>) => {
-  const { touched, errors, isSubmitting, questionnaire } = props;
-
+const generateQuestion = (obj: itemType, touched: defaultValuesType, errors: defaultValuesType) => {
   return (
-    <Form className={formPage.form}>
-      <h1 className={formPage.formHeader}>{questionnaire.title}</h1>
-      <h3>{questionnaire.description}</h3>
-      <div>
-        { questionnaire.item.map((obj: itemType) => (
-            <div>
-              <div>
-                {obj.text}
-              </div>
-              <div>
-                {getField(obj.type, obj.linkId)}
-                {touched[obj.linkId] && errors[obj.linkId] && <span className={formPage.fieldError}>  {errors[obj.linkId]}</span>}
-              </div>
-            </div>
-          ))
+    <div>
+      <div className={(obj.type === 'display' && formPage.qDisplay) || (obj.type === 'group' && formPage.qGroup)}>
+        { obj.hasOwnProperty('prefix') &&
+          <span>{obj.prefix}. </span>
         }
-
-        <button type="submit" disabled={isSubmitting}>
-          Submit
-        </button>
+        {obj.text}
       </div>
-    </Form>
+      <div>
+        {getField(obj)}
+        {touched[obj.linkId] && errors[obj.linkId] && <span className={formPage.fieldError}>  {errors[obj.linkId]}</span>}
+      </div>
+    </div>
+  );
+}
+
+const generateForm = (items: Array<itemType>, touched: defaultValuesType, errors: defaultValuesType) => {
+
+    var questions = Array();
+    items.forEach((item: itemType) => {
+        if (item.type === 'group') {
+          questions.push(generateQuestion(item, touched, errors)); // add div elements for group which may have items
+
+          // recursively add items in group
+          questions.push(...generateForm(item.item || Array(), touched, errors));
+        } else {
+          questions.push(generateQuestion(item, touched, errors));
+        }
+    });
+     
+    return questions;
+}
+
+const InnerForm = (props: MyFormProps & FormikProps<defaultValuesType>) => {
+  const { touched, errors, isSubmitting, questionnaire } = props;
+  
+  return (
+    <div className={formPage.formContainer}>
+        <Form className={formPage.form}>
+          <h1 className={formPage.formHeader}>{questionnaire.title}</h1>
+          <h3>{questionnaire.description}</h3>
+          <div className={formPage.formBody}>
+            { generateForm(questionnaire.item, touched, errors) }
+            <button className={formPage.formSubmit} type="submit" disabled={isSubmitting}>
+              Submit
+            </button>
+          </div>
+        </Form>
+    </div>
   );
 };
 
-// The type of props MyForm receives
-interface MyFormProps {
-  questionnaire: questionnaireType;
+const findItemWithId = (id: string, items: Array<itemType>): defaultValuesType => {
+  
+  var found = false;
+  var curr = items[0];
+  for(var i = 0; i < items.length; i++) {
+    const item = items[i];
+    
+    if (item.linkId === id) {
+      found = true;
+      curr = item;
+      break;
+    } else if (item.type === 'group') {
+      const obj = findItemWithId(id, item.item || Array());
+      if (obj.found) {
+        found = true;
+        curr = obj.item;
+        break;
+      }
+     
+    }
+  }
+
+  return {
+    found: found,
+    item: curr
+  };
 }
 
-interface defaultValuesType {
-    [key: string]: any
+const generateDefaultValues = (items: Array<itemType>) => {
+    var defaultValues: defaultValuesType = {};
+
+    for(var i = 0; i < items.length; i++) {
+      const item = items[i];
+      if (item.type === 'group') {
+        const obj = generateDefaultValues(item.item || Array());
+        defaultValues = {...defaultValues, ...obj};
+        defaultValues[item.linkId] = itemDefaultValue[item.type];
+      } else if (item.type === 'choice') {
+        // set default value to be first option
+        defaultValues[item.linkId] = (item.answerOption || Array())[0].valueString;
+      } else {
+        defaultValues[item.linkId] = itemDefaultValue[item.type];
+      }
+    }
+
+    return defaultValues;
 }
 
 // Wrap our form with the withFormik HoC
@@ -115,26 +120,22 @@ const MyForm = withFormik<MyFormProps, defaultValuesType>({
   // Transform outer props into form values
   mapPropsToValues: (props) => {
     const items = props.questionnaire.item;
-    var defaultValues: defaultValuesType = {};
-
-    for(var i = 0; i < items.length; i++) {
-      const item = items[i];
-      defaultValues[item.linkId] = '';
-    }
-
-    return defaultValues;
+    return generateDefaultValues(items);
   },
 
   // Add a custom validation function (this can be async too!)
-  validate: (values: defaultValuesType) => {
+  validate: (values: defaultValuesType, props) => {
+    console.log(values);
     const errors: FormikErrors<defaultValuesType> = {};
     const valuesKeys = Object.keys(values);
-    for(var i = 0; i < valuesKeys.length; i++) {
-      const key = valuesKeys[i];
-      if (!values[key]) {
+    
+    valuesKeys.forEach((key) => {
+      const item = findItemWithId(key, props.questionnaire.item).item;
+      if (item.hasOwnProperty('required') && item.required && !values[key]) {
         errors[key] = 'Required';
       }
-    }
+    })
+    
     return errors;
   },
 

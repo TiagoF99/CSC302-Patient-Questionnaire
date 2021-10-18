@@ -5,7 +5,7 @@ import { questionnaireType, itemType } from '../../api/questionnaire';
 import { MyFormProps, defaultValuesType } from './form';
 
 const getField = (obj: itemType) => {
-  const type = obj.type;
+  const { type } = obj;
   const name = obj.linkId;
 
   if (type === 'string' || type === 'text' || type === 'open-choice') {
@@ -52,8 +52,8 @@ const getField = (obj: itemType) => {
   if (type === 'quantity') {
   } else if (type === 'question') {
   } else if (type === 'choice') {
-    var options = Array();
-    (obj.answerOption || Array()).forEach((valueObj) => {
+    const options = [];
+    (obj.answerOption || []).forEach((valueObj) => {
       options.push(<option value={valueObj.valueString}>{valueObj.valueString}</option>);
     });
     return (

@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import axios from 'axios';
 import fhirClient from '../lib/fhir';
 
 const getQuestionnaires = async (_: Request, res: Response) => {
@@ -29,4 +30,33 @@ const getQuestionnaire = async (req: Request, res: Response) => {
   }
 };
 
-export { getQuestionnaire, getQuestionnaires };
+type pagingReqQuery = { next: string; previous: string };
+const getQuestionnairesPage = async (req: Request<pagingReqQuery>, res: Response) => {
+  const { next, previous } = req.query;
+  try {
+    if ((next && typeof next !== 'string') || (previous && typeof previous !== 'string')) {
+      return res.status(400).json({
+        error: `Failed to get paged questionnaires because next/previous is not a string`,
+      });
+    }
+
+    if (next) {
+      const response = await axios.get(next);
+      return res.json({ response: response.data });
+    }
+
+    if (previous) {
+      const response = await axios.get(previous);
+      return res.json({ response: response.data });
+    }
+
+    const response = await fhirClient.search({ resourceType: 'Questionnaire', searchParams: { _count: 10 } });
+    return res.json({ response });
+  } catch (err: any) {
+    return res.status(400).json({
+      error: `Failed to get paged questionnaires`,
+    });
+  }
+};
+
+export { getQuestionnaire, getQuestionnaires, getQuestionnairesPage };

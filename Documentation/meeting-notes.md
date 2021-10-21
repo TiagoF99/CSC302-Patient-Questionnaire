@@ -62,3 +62,21 @@
 - Potentially important resources we found:	
 https://docs.smarthealthit.org/client-js/
 https://github.com/Vermonster/fhir-kit-client
+
+
+### Oct 21
+- Met with TA Julia:
+    - Talked about how we have started A2 and have some working features currently
+    - We individually spoke about what we have been working on and what we have found has been going well and not going well technically
+        - Tiago:
+            - Frontend work has been going well but some challenged with setting up FHIR and all of its formatting and type restrictions
+        - Kevin:
+            - Working on setting up the landing page
+        - Rishab:
+            - Working on setting up the backend and researching different tools that we could leverage for our project
+        - Patrick:
+            - Team had a hard time figuring out project scope but have a clear understanding after team weekly meeting
+            - Working on the backend alongside Rishab and is new to alot of the technologies being used, so needs some ramp up time  
+    - Things to note:
+        - Improve meeting notes to include meetings with industry partner
+        - Professor will doc marks for not showing up to TA meetings 

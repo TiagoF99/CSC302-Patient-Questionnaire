@@ -93,6 +93,8 @@ https://github.com/Vermonster/fhir-kit-client
 
 - System diagram we came up with:
 
+![](system.jpg)
+
 - Important findings/decisions:
     - Send a questionnaire as a schema from the BE to FE using https://github.com/dermatologist/fhirformjs
     - Render the questionnaire schema using https://github.com/dermatologist/fhir-questionnaire-render-react/ on the front end

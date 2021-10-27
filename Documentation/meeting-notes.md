@@ -124,7 +124,12 @@ https://github.com/Vermonster/fhir-kit-client
 - Weekly Updates:
     - Tiago:
         - Completed:
+            - [PR](https://github.com/TiagoF99/CSC302-Patient-Questionnaire/pull/9):
+                - Integrated Group item type properly
+                - Updated styling and added a global header
+                - Added for item value verifications  
         - Next Steps:
+            - Integrate open-choice, question types for form 
     - Patrick
         - Completed:
         - Next Steps:

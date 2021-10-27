@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { Dispatch, SetStateAction, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import getStatus from '../api/status';
 
-type Dispatcher<S> = Dispatch<SetStateAction<S>>;
-
-const Status = ({ setRenderFormPage }: { setRenderFormPage: Dispatcher<boolean> }) => {
+const Status = () => {
   const [status, setStatus] = useState('');
 
   useEffect(() => {
@@ -15,18 +13,11 @@ const Status = ({ setRenderFormPage }: { setRenderFormPage: Dispatcher<boolean> 
     getStatusFromApi();
   }, []);
 
-  const goToFormPage = () => {
-    setRenderFormPage(true);
-  };
-
   return (
     <div>
-      <h1>
+      <h4>
         Questionnaire app backend: <b>{status || 'not running'}</b>.
-      </h1>
-      <button onClick={goToFormPage} type="submit">
-        go to form page
-      </button>
+      </h4>
     </div>
   );
 };

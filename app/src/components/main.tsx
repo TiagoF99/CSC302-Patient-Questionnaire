@@ -17,18 +17,10 @@ const Main = () => {
           </Route>
         </Switch>
       </div>
+
+      <Status />
     </Router>
   );
-
-  //return <LandingPage/>
-
-  const [renderFormPage, setRenderFormPage] = React.useState(false);
-
-  if (!renderFormPage) {
-    return <Status setRenderFormPage={setRenderFormPage} />;
-  }
-
-  return <FormPage setRenderFormPage={setRenderFormPage} />;
 };
 
 export default Main;

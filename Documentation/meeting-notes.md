@@ -118,3 +118,19 @@ https://github.com/Vermonster/fhir-kit-client
     - Things to note:
         - Improve meeting notes to include meetings with industry partner
         - Professor will doc marks for not showing up to TA meetings 
+
+### Oct 27
+
+- Weekly Updates:
+    - Tiago:
+        - Completed:
+        - Next Steps:
+    - Patrick
+        - Completed:
+        - Next Steps:
+    - Kevin
+        - Completed:
+        - Next Steps:
+    - Rishab
+        - Completed:
+        - Next Steps:

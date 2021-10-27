@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { FormikProps, Field, FieldProps } from 'formik';
 import { ItemType, QuestionnaireType } from '../../api/questionnaire';
+import formPage from './formPage.module.css';
 
 export interface MyFormProps {
   questionnaire: QuestionnaireType;
@@ -10,7 +11,7 @@ export interface DefaultValuesType {
   [key: string]: any;
 }
 
-const getField = (obj: ItemType) => {
+const getField = (obj: ItemType, touched: DefaultValuesType, errors: DefaultValuesType) => {
   const { type } = obj;
   const name = obj.linkId;
 
@@ -34,7 +35,7 @@ const getField = (obj: ItemType) => {
     return <Field name={name} component={CustomInputComponent} placeholder="Decimal Value (ex. 2.25)" />;
   }
   if (type === 'integer') {
-    return <Field type="number" name={name} />;
+    return <Field className={(touched[obj.linkId] && errors[obj.linkId] && formPage.fieldErrorHighlight)} type="number" name={name} />;
   }
   if (type === 'date') {
     return <Field type="date" name={name} />;
@@ -69,7 +70,7 @@ const getField = (obj: ItemType) => {
   // string, text, open-choice
   return;
 
-  // TODO: missing integration of types choice, group, display, question, open-choice
+  // TODO: missing integration of types question, open-choice
 };
 
 // more information: https://www.hl7.org/fhir/datatypes.html

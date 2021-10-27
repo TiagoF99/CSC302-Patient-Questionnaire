@@ -1,7 +1,7 @@
 .form {
 	text-align: center;
 	margin: 20px;
-	width: 40%;
+	width: 50%;
 }
 
 .form input {
@@ -15,8 +15,9 @@
 }
 
 .formHeader {
-	font-family: 'roboto';
-	font-weight: 100;
+	font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: #FF5252;
 	font-size: 200%;
 }
 
@@ -25,32 +26,74 @@
 	font-weight: bold;
 }
 
+.fieldErrorHighlight {
+	border-color: red !important;
+} 
+
 .formBody {
-	border: solid lightgrey 0.5px;
-    border-radius: 10px;
+	border-left: solid 1px #222222;
     padding: 20px;
-   	box-shadow: 0px 5px 5px 1px #888;
+}
+
+.fieldText {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 100;
 }
 
 .formSubmit {
 	margin-top: 10px;
-	width: 50%;
+	width: 100%;
 	padding: 5px 0 5px 0;
 	background-color: white;
 	border: .5px solid red;
 	border-radius: 5px;
-	color: red;
+	color: #FF5252;
 }
 
 .formSubmit:hover {
-	background-color: red;
+	background-color: #FF5252;
+	color: white;
+}
+
+.formSubmit a {
+	color: #FF5252;
+	text-decoration: none;
+}
+#main-button a:hover {
 	color: white;
 }
 
 .qDisplay {
-	font-weight: bold;
+	font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: #222222;
+	font-size: 150%;
 }
 
 .qGroup {
-	margin: 20px;
+	border: solid lightgrey 0.5px;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px;
+   	box-shadow: 0px 2px 2px 0px #888;
+}
+
+.qItem {
+	margin: 15px;
+}
+
+.groupHead {
+	font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    color: #222222;
+	font-size: 150%;
+}
+
+.requiredAsterix {
+	color: red;
+}
+
+.asterixText {
+	font-size: 70%;
+	margin-top: 10px;
 }

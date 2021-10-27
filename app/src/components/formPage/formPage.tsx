@@ -43,7 +43,6 @@ const FormPage = () => {
 
   return (
     <div>
-      form selected: {questionnaireId}
       <MyForm questionnaire={questionnaire} />
       <button onClick={goToMainPage} type="button">
         Go back to main page

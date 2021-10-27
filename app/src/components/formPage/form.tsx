@@ -6,54 +6,48 @@ import getField, { itemDefaultValue, MyFormProps, DefaultValuesType } from './qu
 
 const generateQuestion = (obj: ItemType, touched: DefaultValuesType, errors: DefaultValuesType) => {
   return (
-    <div>
-      <div className={(obj.type === 'display' && formPage.qDisplay) || (obj.type === 'group' && formPage.qGroup)}>
+    <div className={(obj.type === 'group' && formPage.qGroup) || (obj.type !== 'group' && formPage.qItem)}>
+      <div className={(obj.type === 'display' && formPage.qDisplay) || (obj.type === 'group' && formPage.groupHead) || formPage.fieldText}>
         {'prefix' in obj && <span>{obj.prefix}. </span>}
         {obj.text}
       </div>
       <div>
-        {getField(obj)}
         {touched[obj.linkId] && errors[obj.linkId] && (
-          <span className={formPage.fieldError}> {errors[obj.linkId]}</span>
+          <span className={formPage.fieldError}> {errors[obj.linkId]}: </span>
         )}
+        {addFormFields(obj, touched, errors)}
+        {'required' in obj && obj.required && obj.type !== 'group' && obj.type !== 'display' && (
+            <span className={formPage.requiredAsterix}>
+              *
+            </span>
+         )}
       </div>
     </div>
   );
 };
 
-const generateForm = (items: Array<ItemType>, touched: DefaultValuesType, errors: defaultValuesType) => {
+const addFormFields = (obj: ItemType, touched: DefaultValuesType, errors: DefaultValuesType) => {
+  if (obj.type === 'group') {
+    return generateForm(obj.item || [], touched, errors);
+  } else {
+    return getField(obj, touched, errors);
+  }
+}
+
+const generateForm = (items: Array<ItemType>, touched: DefaultValuesType, errors: DefaultValuesType) => {
   const questions: any = [];
   items.forEach((item: ItemType) => {
     if (item.type === 'group') {
       questions.push(generateQuestion(item, touched, errors)); // add div elements for group which may have items
 
       // recursively add items in group
-      questions.push(...generateForm(item.item || [], touched, errors));
+      //questions.push(...generateForm(item.item || [], touched, errors));
     } else {
       questions.push(generateQuestion(item, touched, errors));
     }
   });
 
   return questions;
-};
-
-const InnerForm = (props: MyFormProps & FormikProps<DefaultValuesType>) => {
-  const { touched, errors, isSubmitting, questionnaire } = props;
-
-  return (
-    <div className={formPage.formContainer}>
-      <Form className={formPage.form}>
-        <h1 className={formPage.formHeader}>{questionnaire.title}</h1>
-        <h3>{questionnaire.description}</h3>
-        <div className={formPage.formBody}>
-          {generateForm(questionnaire.item, touched, errors)}
-          <button className={formPage.formSubmit} type="submit" disabled={isSubmitting}>
-            Submit
-          </button>
-        </div>
-      </Form>
-    </div>
-  );
 };
 
 const findItemWithId = (id: string, items: Array<ItemType>): DefaultValuesType => {
@@ -80,6 +74,26 @@ const findItemWithId = (id: string, items: Array<ItemType>): DefaultValuesType =
     found,
     item: curr,
   };
+};
+
+const InnerForm = (props: MyFormProps & FormikProps<DefaultValuesType>) => {
+  const { touched, errors, isSubmitting, questionnaire } = props;
+
+  return (
+    <div className={formPage.formContainer}>
+      <Form className={formPage.form}>
+        <h1 className={formPage.formHeader}>{questionnaire.title}</h1>
+        <h3>{questionnaire.description}</h3>
+        <div className={formPage.formBody}>
+          {generateForm(questionnaire.item, touched, errors)}
+          <div className={formPage.asterixText}>All Fields with an * are required.</div>
+        </div>
+        <button className={formPage.formSubmit} type="submit" disabled={isSubmitting}>
+          Submit
+        </button>
+      </Form>
+    </div>
+  );
 };
 
 const generateDefaultValues = (items: Array<ItemType>) => {
@@ -120,6 +134,9 @@ const MyForm = withFormik<MyFormProps, DefaultValuesType>({
       if ('required' in item && item.required && !values[key]) {
         errors[key] = 'Required';
       }
+      if (item.type === 'integer' && !Number.isInteger(values[key])) {
+        errors[key] = 'Value must be an Integer';
+      }
     });
 
     return errors;
@@ -127,6 +144,7 @@ const MyForm = withFormik<MyFormProps, DefaultValuesType>({
 
   handleSubmit: (values) => {
     // do submitting things which only triggers once validate passes
+    console.log(values);
     return values;
   },
 })(InnerForm);

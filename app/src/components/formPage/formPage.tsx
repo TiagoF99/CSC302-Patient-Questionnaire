@@ -1,19 +1,26 @@
 import * as React from 'react';
-import { Dispatch, SetStateAction, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import MyForm from './form';
 import getQuestionnaire from '../../api/questionnaire';
 import ErrorMessage from '../errorMessage/errorMessage';
+import { useHistory, withRouter, useLocation } from 'react-router-dom';
 
-type Dispatcher<S> = Dispatch<SetStateAction<S>>;
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+};
 
-const FormPage = ({ setRenderFormPage }: { setRenderFormPage: Dispatcher<boolean> }) => {
+const FormPage = () => {
+  const history = useHistory();
+  const query = useQuery();
+
   const [questionnaire, setQuestionnaire] = useState({
     title: '',
     description: '',
     id: '',
     item: [],
   });
-  const questionnaireId: string = '2638765'; // harcoded for now
+
+  const questionnaireId = query.get('id'); // get id from query param
 
   useEffect(() => {
     const getQuestionnaireFromApi = async () => {
@@ -24,7 +31,9 @@ const FormPage = ({ setRenderFormPage }: { setRenderFormPage: Dispatcher<boolean
   }, []);
 
   const goToMainPage = () => {
-    setRenderFormPage(false);
+    history.push({
+      pathname: '/',
+    });
   };
 
   if (questionnaire.id === '') {
@@ -34,12 +43,13 @@ const FormPage = ({ setRenderFormPage }: { setRenderFormPage: Dispatcher<boolean
 
   return (
     <div>
+      form selected: {questionnaireId}
       <MyForm questionnaire={questionnaire} />
       <button onClick={goToMainPage} type="button">
-        go to the main page
+        Go back to main page
       </button>
     </div>
   );
 };
 
-export default FormPage;
+export default withRouter(FormPage);

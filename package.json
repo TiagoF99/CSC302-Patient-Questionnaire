@@ -5,5 +5,8 @@
     "test": "npm run test --prefix app",
     "install-all": "npm i --prefix server && npm i --prefix app",
     "build": "npm run build --prefix app"
+  },
+  "dependencies": {
+    "@types/react-router-dom": "^5.3.2"
   }
 }

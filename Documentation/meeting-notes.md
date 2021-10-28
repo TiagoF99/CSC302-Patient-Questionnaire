@@ -125,19 +125,23 @@ https://github.com/Vermonster/fhir-kit-client
     - Tiago:
         - Completed:
             - [PR](https://github.com/TiagoF99/CSC302-Patient-Questionnaire/pull/9):
-                - Integrated Group item type properly
-                - Updated styling and added a global header
-                - Added for item value verifications  
+                - Integrated Group item type properly and updated styling and added a global header
+                - Added some more item value verifications  
         - Next Steps:
             - Integrate open-choice, question types for form 
     - Patrick
         - Completed:
+            - No Updates 
         - Next Steps:
     - Kevin
         - Completed:
+            - [Commit](https://github.com/TiagoF99/CSC302-Patient-Questionnaire/commit/2853502b8d5053dfdd0424cfa0d301cbb7e3c0b0)
+                - Add prototype for landing page and adding routing to the project to easily transfer through pages
         - Next Steps:
+            - Currently user questionnaire selection is hardcoded so update to add search functionality with backend pulled questionnaires
     - Rishab
         - Completed:
+            - No Updates 
         - Next Steps:
 
 ### Oct 28

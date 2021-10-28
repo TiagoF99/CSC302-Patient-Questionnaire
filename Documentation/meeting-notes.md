@@ -139,3 +139,15 @@ https://github.com/Vermonster/fhir-kit-client
     - Rishab
         - Completed:
         - Next Steps:
+
+### Oct 28
+- Met with TA Julia:
+    - Talked about previous issues with project scope and how they are mostly resolved now
+    - Not much project progress this last week given other priorities
+    - Kevin made some progress on his end this week given he did not do much the previous week
+    - All team members said what has been going well technically and was has not been going so well
+        - FHIR server was down for a period of time when developing this week
+    - Discussed team progress and where we are at with milestones
+    - Things to note:
+        - Improve meeting notes to include meetings with industry partner
+        - Professor will doc marks for not showing up to TA meetings 

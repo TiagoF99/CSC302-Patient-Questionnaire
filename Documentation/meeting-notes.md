@@ -89,7 +89,12 @@ https://github.com/Vermonster/fhir-kit-client
             - Need more time to complete current task
     - Rishab
         - Completed:
+            - Built diagram of entire system to validate and explain scope to the team.
+            - [PR](https://github.com/TiagoF99/CSC302-Patient-Questionnaire/pull/7)
+                - Added backend support to pull questionnaires and specific questionnaires by id.
+            - Tested out different libraries.
         - Next Steps:
+
 
 - System diagram we came up with:
 
@@ -155,3 +160,20 @@ https://github.com/Vermonster/fhir-kit-client
     - Things to note:
         - Improve meeting notes to include meetings with industry partner
         - Professor will doc marks for not showing up to TA meetings 
+
+### Nov 1
+
+- Weekly Updates:
+    - Tiago:
+        - Next Steps:
+    - Patrick
+        - Completed:
+        - Next Steps:
+    - Kevin
+        - Completed:
+        - Next Steps:
+    - Rishab
+        - Completed:
+            - [PR](https://github.com/TiagoF99/CSC302-Patient-Questionnaire/pull/10)
+            - Misc form fixes, adding support for conditional enableWhen, nested forms and fixed some fields.
+        - Next Steps:

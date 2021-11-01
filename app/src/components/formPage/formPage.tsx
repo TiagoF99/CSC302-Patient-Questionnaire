@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { useHistory, withRouter, useLocation, Link } from 'react-router-dom';
+import Form from '@rjsf/core';
 import MyForm from './form';
 import getQuestionnaire from '../../api/questionnaire';
 import ErrorMessage from '../errorMessage/errorMessage';
-import { useHistory, withRouter, useLocation } from 'react-router-dom';
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -20,11 +21,15 @@ const FormPage = () => {
     item: [],
   });
 
-  const questionnaireId = query.get('id'); // get id from query param
+  const [loading, setLoading] = useState(true);
+
+  const questionnaireId = query.get('id') || ''; // get id from query param
 
   useEffect(() => {
     const getQuestionnaireFromApi = async () => {
-      setQuestionnaire(await getQuestionnaire(questionnaireId));
+      const q = await getQuestionnaire(questionnaireId);
+      setQuestionnaire(q);
+      setLoading(false);
     };
 
     getQuestionnaireFromApi();
@@ -43,10 +48,12 @@ const FormPage = () => {
 
   return (
     <div>
-      <MyForm questionnaire={questionnaire} />
-      <button onClick={goToMainPage} type="button">
-        Go back to main page
-      </button>
+      {!loading && <MyForm questionnaire={questionnaire} />}
+      <Link to="/">
+        <button onClick={goToMainPage} type="button">
+          Go back to main page
+        </button>
+      </Link>
     </div>
   );
 };

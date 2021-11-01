@@ -35,7 +35,13 @@ const getField = (obj: ItemType, touched: DefaultValuesType, errors: DefaultValu
     return <Field name={name} component={CustomInputComponent} placeholder="Decimal Value (ex. 2.25)" />;
   }
   if (type === 'integer') {
-    return <Field className={(touched[obj.linkId] && errors[obj.linkId] && formPage.fieldErrorHighlight)} type="number" name={name} />;
+    return (
+      <Field
+        className={touched[obj.linkId] && errors[obj.linkId] && formPage.fieldErrorHighlight}
+        type="number"
+        name={name}
+      />
+    );
   }
   if (type === 'date') {
     return <Field type="date" name={name} />;
@@ -55,8 +61,13 @@ const getField = (obj: ItemType, touched: DefaultValuesType, errors: DefaultValu
   if (type === 'choice') {
     const options: any = [];
     (obj.answerOption || []).forEach((valueObj) => {
-      options.push(<option value={valueObj.valueString}>{valueObj.valueString}</option>);
+      if ('valueCoding' in valueObj) {
+        options.push(<option value={valueObj.valueCoding.code}>{valueObj.valueCoding.code}</option>);
+      } else {
+        options.push(<option value={valueObj.valueString}>{valueObj.valueString}</option>);
+      }
     });
+    options.push(<option value="" />);
     return (
       <Field name={name} component="select">
         {options}
@@ -64,11 +75,10 @@ const getField = (obj: ItemType, touched: DefaultValuesType, errors: DefaultValu
     );
   }
   if (type === 'string' || type === 'text') {
-  	return <Field type="text" name={name} />;
+    return <Field type="text" name={name} />;
   }
 
   // string, text, open-choice
-  return;
 
   // TODO: missing integration of types question, open-choice
 };

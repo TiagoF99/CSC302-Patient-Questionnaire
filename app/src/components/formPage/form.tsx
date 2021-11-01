@@ -4,10 +4,24 @@ import formPage from './formPage.module.css';
 import { ItemType } from '../../api/questionnaire';
 import getField, { itemDefaultValue, MyFormProps, DefaultValuesType } from './questionnaireType';
 
-const generateQuestion = (obj: ItemType, touched: DefaultValuesType, errors: DefaultValuesType) => {
+const generateQuestion = (
+  obj: ItemType,
+  touched: DefaultValuesType,
+  errors: DefaultValuesType,
+  values: DefaultValuesType,
+) => {
   return (
-    <div className={(obj.type === 'group' && formPage.qGroup) || (obj.type !== 'group' && formPage.qItem)}>
-      <div className={(obj.type === 'display' && formPage.qDisplay) || (obj.type === 'group' && formPage.groupHead) || formPage.fieldText}>
+    <div
+      key={obj.linkId}
+      className={(obj.type === 'group' && formPage.qGroup) || (obj.type !== 'group' && formPage.qItem)}
+    >
+      <div
+        className={
+          (obj.type === 'display' && formPage.qDisplay) ||
+          (obj.type === 'group' && formPage.groupHead) ||
+          formPage.fieldText
+        }
+      >
         {'prefix' in obj && <span>{obj.prefix}. </span>}
         {obj.text}
       </div>
@@ -15,35 +29,64 @@ const generateQuestion = (obj: ItemType, touched: DefaultValuesType, errors: Def
         {touched[obj.linkId] && errors[obj.linkId] && (
           <span className={formPage.fieldError}> {errors[obj.linkId]}: </span>
         )}
-        {addFormFields(obj, touched, errors)}
+        {addFormFields(obj, touched, errors, values)}
         {'required' in obj && obj.required && obj.type !== 'group' && obj.type !== 'display' && (
-            <span className={formPage.requiredAsterix}>
-              *
-            </span>
-         )}
+          <span className={formPage.requiredAsterix}>*</span>
+        )}
       </div>
     </div>
   );
 };
 
-const addFormFields = (obj: ItemType, touched: DefaultValuesType, errors: DefaultValuesType) => {
+const addFormFields = (
+  obj: ItemType,
+  touched: DefaultValuesType,
+  errors: DefaultValuesType,
+  values: DefaultValuesType,
+) => {
   if (obj.type === 'group') {
-    return generateForm(obj.item || [], touched, errors);
-  } else {
-    return getField(obj, touched, errors);
+    return generateForm(obj.item || [], touched, errors, values);
   }
-}
+  if ('item' in obj) {
+    return (
+      <>
+        {getField(obj, touched, errors)}
+        {generateForm(obj.item || [], touched, errors, values)}
+      </>
+    );
+  }
+  return getField(obj, touched, errors);
+};
 
-const generateForm = (items: Array<ItemType>, touched: DefaultValuesType, errors: DefaultValuesType) => {
+const generateForm = (
+  items: Array<ItemType>,
+  touched: DefaultValuesType,
+  errors: DefaultValuesType,
+  values: DefaultValuesType,
+) => {
   const questions: any = [];
   items.forEach((item: ItemType) => {
-    if (item.type === 'group') {
-      questions.push(generateQuestion(item, touched, errors)); // add div elements for group which may have items
+    let enabled = true;
 
-      // recursively add items in group
-      //questions.push(...generateForm(item.item || [], touched, errors));
-    } else {
-      questions.push(generateQuestion(item, touched, errors));
+    if ('enableWhen' in item) {
+      item.enableWhen.forEach((enabler) => {
+        if (enabler.operator === 'exists') {
+          if (enabler.question in values && (values[enabler.question].length === 0) === enabler.answerBoolean) {
+            enabled = false;
+          }
+        }
+      });
+    }
+
+    if (enabled) {
+      if (item.type === 'group') {
+        questions.push(generateQuestion(item, touched, errors, values)); // add div elements for group which may have items
+
+        // recursively add items in group
+        // questions.push(...generateForm(item.item || [], touched, errors));
+      } else {
+        questions.push(generateQuestion(item, touched, errors, values));
+      }
     }
   });
 
@@ -77,15 +120,14 @@ const findItemWithId = (id: string, items: Array<ItemType>): DefaultValuesType =
 };
 
 const InnerForm = (props: MyFormProps & FormikProps<DefaultValuesType>) => {
-  const { touched, errors, isSubmitting, questionnaire } = props;
-
+  const { touched, errors, isSubmitting, questionnaire, values } = props;
   return (
     <div className={formPage.formContainer}>
       <Form className={formPage.form}>
         <h1 className={formPage.formHeader}>{questionnaire.title}</h1>
         <h3>{questionnaire.description}</h3>
         <div className={formPage.formBody}>
-          {generateForm(questionnaire.item, touched, errors)}
+          {generateForm(questionnaire.item, touched, errors, values)}
           <div className={formPage.asterixText}>All Fields with an * are required.</div>
         </div>
         <button className={formPage.formSubmit} type="submit" disabled={isSubmitting}>
@@ -107,7 +149,8 @@ const generateDefaultValues = (items: Array<ItemType>) => {
       defaultValues[item.linkId] = itemDefaultValue[item.type];
     } else if (item.type === 'choice') {
       // set default value to be first option
-      defaultValues[item.linkId] = (item.answerOption || [])[0].valueString;
+      defaultValues[item.linkId] = '';
+      // defaultValues[item.linkId] = (item.answerOption || [])[0].valueString;
     } else {
       defaultValues[item.linkId] = itemDefaultValue[item.type];
     }
@@ -144,7 +187,6 @@ const MyForm = withFormik<MyFormProps, DefaultValuesType>({
 
   handleSubmit: (values) => {
     // do submitting things which only triggers once validate passes
-    console.log(values);
     return values;
   },
 })(InnerForm);

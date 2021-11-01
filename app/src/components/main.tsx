@@ -17,7 +17,7 @@ const Main = () => {
               <Status />
             </div>
           </Route>
-          <Route path="/form">
+          <Route exact path="/form">
             <FormPage />
           </Route>
         </Switch>

@@ -80,16 +80,17 @@ https://github.com/Vermonster/fhir-kit-client
                 - Added backend support to pull questionnaires and specific questionnaires by id.
             - Tested out different libraries.
         - Next Steps:
+            - Investigate fhirformjs
+- Important findings:
+    - Need further Investigation
+        - Send a questionnaire as a schema from the BE to FE using https://github.com/dermatologist/fhirformjs
+        - Render the questionnaire schema using https://github.com/dermatologist/fhir-questionnaire-render-react/ on the front end
+    - Validation will have to be done by us without use of library
 
 
 - System diagram we came up with:
 
 ![](system.jpg)
-
-- Important findings/decisions:
-    - Send a questionnaire as a schema from the BE to FE using https://github.com/dermatologist/fhirformjs
-    - Render the questionnaire schema using https://github.com/dermatologist/fhir-questionnaire-render-react/ on the front end
-    - Validation will have to be done by us without use of library
 
 ### Oct 27
 
@@ -99,8 +100,9 @@ https://github.com/Vermonster/fhir-kit-client
             - [PR](https://github.com/TiagoF99/CSC302-Patient-Questionnaire/pull/9):
                 - Integrated Group item type properly and updated styling and added a global header
                 - Added some more item value verifications  
+                - Added some additional styling to the UI
         - Next Steps:
-            - Integrate open-choice, question types for form 
+            - Integrate open-choice, question types for form
     - Patrick
         - Completed:
             - No Updates 
@@ -113,10 +115,14 @@ https://github.com/Vermonster/fhir-kit-client
             - Currently user questionnaire selection is hardcoded so update to add search functionality with backend pulled questionnaires
     - Rishab
         - Completed:
-            - No Updates 
+            - Investigated the following and concluded that the libraries do not fully support all fhir questionnaire functionality. Will stick with current team implementation which is working better and can be configured much easier. 
+                - Send a questionnaire as a schema from the BE to FE using https://github.com/dermatologist/fhirformjs
+                - Render the questionnaire schema using https://github.com/dermatologist/fhir-questionnaire-render-react/ on the front end
         - Next Steps:
+            - Aid with questionnaire to form integrations
+            - begin setting up form validation in the backend
 
-### Nov 1
+### Nov 3
 
 - Weekly Updates:
     - Tiago:
@@ -132,3 +138,4 @@ https://github.com/Vermonster/fhir-kit-client
             - [PR](https://github.com/TiagoF99/CSC302-Patient-Questionnaire/pull/10)
             - Misc form fixes, adding support for conditional enableWhen, nested forms and fixed some fields.
         - Next Steps:
+            - begin setting up form validation in the backend

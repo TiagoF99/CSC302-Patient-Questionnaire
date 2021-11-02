@@ -2,7 +2,12 @@
 This application's purpose is to display FHIR Questionnaires, and submit them to a test FHIR server.
 
 # How to navigate this repo
-Please find our  [meeting notes](Documentation/meeting-notes.md), [tech stack discussion](Documentation/tech-stack.md) and [development roadmap](Documentation/development-plan.md) within the [Documentation](Documentation) directory.
+Please find our  
+[team meeting notes](Documentation/team-meeting-notes.md),
+[ta meeting notes](Documentation/ta-meeting-notes.md),
+[industry partner meeting notes](Documentation/industry-partner-meeting-notes.md), 
+[tech stack discussion](Documentation/tech-stack.md) and 
+[development roadmap](Documentation/development-plan.md) within the [Documentation](Documentation) directory.
 Continue reading this README to see what commands to run to install our project on your machines.
 
 

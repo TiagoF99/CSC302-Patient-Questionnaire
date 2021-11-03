@@ -3,6 +3,7 @@ import { withFormik, FormikProps, FormikErrors, Form } from 'formik';
 import formPage from './formPage.module.css';
 import { ItemType } from '../../api/questionnaire';
 import getField, { itemDefaultValue, MyFormProps, DefaultValuesType } from './questionnaireType';
+import checkItemEnabled from './enableWhen/enableWhen';
 
 const generateQuestion = (
   obj: ItemType,
@@ -65,20 +66,10 @@ const generateForm = (
   values: DefaultValuesType,
 ) => {
   const questions: any = [];
+  let enabled = checkItemEnabled(items, values);
   items.forEach((item: ItemType) => {
-    let enabled = true;
-
-    if ('enableWhen' in item) {
-      item.enableWhen.forEach((enabler) => {
-        if (enabler.operator === 'exists') {
-          if (enabler.question in values && (values[enabler.question].length === 0) === enabler.answerBoolean) {
-            enabled = false;
-          }
-        }
-      });
-    }
-
-    if (enabled) {
+    let enable = enabled[item.linkId]; 
+    if (enable) {
       if (item.type === 'group') {
         questions.push(generateQuestion(item, touched, errors, values)); // add div elements for group which may have items
 
@@ -164,6 +155,7 @@ const MyForm = withFormik<MyFormProps, DefaultValuesType>({
   // Transform outer props into form values
   mapPropsToValues: (props) => {
     const items = props.questionnaire.item;
+    console.log(items);
     return generateDefaultValues(items);
   },
 
@@ -180,6 +172,9 @@ const MyForm = withFormik<MyFormProps, DefaultValuesType>({
       if (item.type === 'integer' && !Number.isInteger(values[key])) {
         errors[key] = 'Value must be an Integer';
       }
+      if ('maxLength' in item && item.maxLength < values[key].length) {
+        errors[key] = 'Value must have a max length less that ' + item.maxLength.toString();
+      }
     });
 
     return errors;
@@ -187,6 +182,7 @@ const MyForm = withFormik<MyFormProps, DefaultValuesType>({
 
   handleSubmit: (values) => {
     // do submitting things which only triggers once validate passes
+    console.log(values);
     return values;
   },
 })(InnerForm);

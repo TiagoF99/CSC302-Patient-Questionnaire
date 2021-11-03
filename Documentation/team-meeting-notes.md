@@ -19,20 +19,6 @@
     - Discussed a tech stack that the team is comfortable with and that will work well with the expectations of the project
 - Decided that we will meet once a week to discuss team progress so that we can all align eachother on what we are each working on
 
-### Sept 30
-- Met with the TA to discuss:
-    - How we as individuals are feeling about the course
-    - If we have met to discuss A1 and team roles and expectations for future work and meetings
- - Met async with the industry partner for our project and had him look over our milestones for the project to verify that it is both fair and realistic within the given time frame
-     - He agreed that we set out a good plan for the rest of the semester and gave good tips for some of the stuff we wrote 
-
-### Oct 07
-- Met with TA Julia:
-    - Talked about A1 marking and what we can expect in terms of A2
-    - Discussed how each group member felt about A1 and their own individual contributions and next steps
-- Concerns:
-    - Very similar open source tools already exist that do what we are trying to accomplish with this project. We do not think we will be able to build a better tool compared to those given we have such a limited amount of time.  
-
 ### Oct 13
 
 - Reassessing and confirming goals/features discussed in a1
@@ -94,35 +80,17 @@ https://github.com/Vermonster/fhir-kit-client
                 - Added backend support to pull questionnaires and specific questionnaires by id.
             - Tested out different libraries.
         - Next Steps:
+            - Investigate fhirformjs
+- Important findings:
+    - Need further Investigation
+        - Send a questionnaire as a schema from the BE to FE using https://github.com/dermatologist/fhirformjs
+        - Render the questionnaire schema using https://github.com/dermatologist/fhir-questionnaire-render-react/ on the front end
+    - Validation will have to be done by us without use of library
 
 
 - System diagram we came up with:
 
 ![](system.jpg)
-
-- Important findings/decisions:
-    - Send a questionnaire as a schema from the BE to FE using https://github.com/dermatologist/fhirformjs
-    - Render the questionnaire schema using https://github.com/dermatologist/fhir-questionnaire-render-react/ on the front end
-    - Validation will have to be done by us without use of library
-
-
-
-### Oct 21
-- Met with TA Julia:
-    - Talked about how we have started A2 and have some working features currently
-    - We individually spoke about what we have been working on and what we have found has been going well and not going well technically
-        - Tiago:
-            - Frontend work has been going well but some challenged with setting up FHIR and all of its formatting and type restrictions
-        - Kevin:
-            - Working on setting up the landing page
-        - Rishab:
-            - Working on setting up the backend and researching different tools that we could leverage for our project
-        - Patrick:
-            - Team had a hard time figuring out project scope but have a clear understanding after team weekly meeting
-            - Working on the backend alongside Rishab and is new to alot of the technologies being used, so needs some ramp up time  
-    - Things to note:
-        - Improve meeting notes to include meetings with industry partner
-        - Professor will doc marks for not showing up to TA meetings 
 
 ### Oct 27
 
@@ -132,8 +100,9 @@ https://github.com/Vermonster/fhir-kit-client
             - [PR](https://github.com/TiagoF99/CSC302-Patient-Questionnaire/pull/9):
                 - Integrated Group item type properly and updated styling and added a global header
                 - Added some more item value verifications  
+                - Added some additional styling to the UI
         - Next Steps:
-            - Integrate open-choice, question types for form 
+            - Integrate open-choice, question types for form
     - Patrick
         - Completed:
             - No Updates 
@@ -146,22 +115,14 @@ https://github.com/Vermonster/fhir-kit-client
             - Currently user questionnaire selection is hardcoded so update to add search functionality with backend pulled questionnaires
     - Rishab
         - Completed:
-            - No Updates 
+            - Investigated the following and concluded that the libraries do not fully support all fhir questionnaire functionality. Will stick with current team implementation which is working better and can be configured much easier. 
+                - Send a questionnaire as a schema from the BE to FE using https://github.com/dermatologist/fhirformjs
+                - Render the questionnaire schema using https://github.com/dermatologist/fhir-questionnaire-render-react/ on the front end
         - Next Steps:
+            - Aid with questionnaire to form integrations
+            - begin setting up form validation in the backend
 
-### Oct 28
-- Met with TA Julia:
-    - Talked about previous issues with project scope and how they are mostly resolved now
-    - Not much project progress this last week given other priorities
-    - Kevin made some progress on his end this week given he did not do much the previous week
-    - All team members said what has been going well technically and was has not been going so well
-        - FHIR server was down for a period of time when developing this week
-    - Discussed team progress and where we are at with milestones
-    - Things to note:
-        - Improve meeting notes to include meetings with industry partner
-        - Professor will doc marks for not showing up to TA meetings 
-
-### Nov 1
+### Nov 3
 
 - Weekly Updates:
     - Tiago:
@@ -177,3 +138,4 @@ https://github.com/Vermonster/fhir-kit-client
             - [PR](https://github.com/TiagoF99/CSC302-Patient-Questionnaire/pull/10)
             - Misc form fixes, adding support for conditional enableWhen, nested forms and fixed some fields.
         - Next Steps:
+            - begin setting up form validation in the backend

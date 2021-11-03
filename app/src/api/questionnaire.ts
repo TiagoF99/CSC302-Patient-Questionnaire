@@ -19,6 +19,8 @@ export interface ItemType {
   prefix?: string;
   answerOption?: Array<AnswerOptionType>;
   item?: Array<ItemType>;
+  enableWhen?: Array<{[key: string]: any}>;
+  enableBehaviour?: string;
 }
 
 export interface GroupItemType {

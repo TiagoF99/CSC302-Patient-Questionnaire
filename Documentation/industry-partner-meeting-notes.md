@@ -1,4 +1,4 @@
-# Dream Team's Meeting Notes
+# Dream Team's Industry Partner Meeting Notes
 
 ## Industry partner
 Our industry partner is Alex

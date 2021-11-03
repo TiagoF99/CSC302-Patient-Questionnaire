@@ -54,9 +54,24 @@ const postQuestionnaire = async (req: Request, res: Response) => {
 
   const questionnaireResponse = constructResponse(questionnaireData, req.body);
 
-  console.log(questionnaireResponse);
+  let validateResponse = { data: {} };
+  try {
+    validateResponse = await axios.post(
+      `${process.env.FHIR_API}/QuestionnaireResponse/$validate`,
+      questionnaireResponse,
+    );
+  } catch (err: any) {
+    return res.status(400).json(validateResponse.data);
+  }
 
-  return res.status(200).json(questionnaireResponse);
+  let submitResponse = { data: {} };
+  try {
+    submitResponse = await axios.post(`${process.env.FHIR_API}/QuestionnaireResponse`, questionnaireResponse);
+  } catch (err: any) {
+    return res.status(400).json(submitResponse.data);
+  }
+
+  return res.status(200).json(submitResponse.data);
 };
 
 type pagingReqQuery = { next: string; previous: string };

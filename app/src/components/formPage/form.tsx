@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { withFormik, FormikProps, FormikErrors, Form } from 'formik';
 import formPage from './formPage.module.css';
-import { ItemType } from '../../api/questionnaire';
+import { ItemType, postQuestionnaire } from '../../api/questionnaire';
 import getField, { itemDefaultValue, MyFormProps, DefaultValuesType } from './questionnaireType';
 import checkItemEnabled from './enableWhen/enableWhen';
 
@@ -183,11 +183,11 @@ const MyForm = withFormik<MyFormProps, DefaultValuesType>({
     return errors;
   },
 
-  handleSubmit: (values) => {
+  handleSubmit: async (values: DefaultValuesType, props) => {
     // do submitting things which only triggers once validate passes
-    console.log(values);
-    console.log(JSON.stringify(values));
-    return values;
+    const { questionnaire } = props.props;
+    const res = await postQuestionnaire(questionnaire.id, values);
+    console.log(res);
   },
 })(InnerForm);
 

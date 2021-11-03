@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useHistory, withRouter, useLocation, Link } from 'react-router-dom';
 import MyForm from './form';
-import getQuestionnaire from '../../api/questionnaire';
+import { getQuestionnaire } from '../../api/questionnaire';
 import ErrorMessage from '../errorMessage/errorMessage';
 
 const useQuery = () => {

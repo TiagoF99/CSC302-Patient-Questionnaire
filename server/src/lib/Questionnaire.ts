@@ -64,7 +64,7 @@ const constructResponse = (questionnaireData: any, values: any) => {
       } else {
         if (item.linkId in values) {
           item.answer = [];
-          if (item.type === 'boolean') {
+          if (item.type === 'boolean' && values[item.linkId] !== '') {
             item.answer.push({
               valueBoolean: values[item.linkId] === 'true',
             });
@@ -90,10 +90,6 @@ const constructResponse = (questionnaireData: any, values: any) => {
             item.answer.push({
               valueDecimal: values[item.linkId],
             });
-          } else {
-            item.answer.push({
-              valueString: values[item.linkId],
-            });
           }
         }
 
@@ -103,6 +99,9 @@ const constructResponse = (questionnaireData: any, values: any) => {
       }
       const validKeys = ['linkId', 'answer', 'item'];
       Object.keys(item).forEach((key) => validKeys.includes(key) || delete item[key]);
+      if (item.answer && item.answer.length === 0) {
+        delete item.answer;
+      }
     }
   }
 

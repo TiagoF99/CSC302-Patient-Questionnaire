@@ -170,9 +170,6 @@ const MyForm = withFormik<MyFormProps, DefaultValuesType>({
         errors[key] = 'Required';
       }
       if (item.type === 'integer' && !Number.isInteger(values[key])) {
-        console.log(values[key]);
-        console.log(values);
-        console.log(key);
         errors[key] = 'Value must be an Integer';
       }
       if ('maxLength' in item && item.maxLength < values[key].length) {

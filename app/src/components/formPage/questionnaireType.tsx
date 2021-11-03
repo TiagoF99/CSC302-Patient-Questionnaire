@@ -20,10 +20,11 @@ const getField = (obj: ItemType, touched: DefaultValuesType, errors: DefaultValu
       <Field name={name} component="select">
         <option value="true">Yes</option>
         <option value="false">No</option>
+        <option value="" />
       </Field>
     );
   }
-  if (type === 'decimal') {
+  if (type === 'decimal' || type === 'quantity') {
     const CustomInputComponent: React.FC<MyFormProps & FormikProps<DefaultValuesType> & FieldProps> = ({
       field,
       ...props
@@ -63,11 +64,16 @@ const getField = (obj: ItemType, touched: DefaultValuesType, errors: DefaultValu
     options.push(<option value="" />);
     (obj.answerOption || []).forEach((valueObj) => {
       if ('valueCoding' in valueObj) {
-        options.push(<option value={valueObj.valueCoding.code}>{valueObj.valueCoding.code}</option>);
+        if (valueObj.valueCoding.display) {
+          options.push(<option value={JSON.stringify(valueObj.valueCoding)}>{valueObj.valueCoding.display}</option>);
+        } else {
+          options.push(<option value={JSON.stringify(valueObj.valueCoding)}>{valueObj.valueCoding.code}</option>);
+        }
       } else {
         options.push(<option value={valueObj.valueString}>{valueObj.valueString}</option>);
       }
     });
+    options.push(<option value={undefined} />);
     return (
       <Field name={name} component="select">
         {options}
@@ -83,22 +89,22 @@ const getField = (obj: ItemType, touched: DefaultValuesType, errors: DefaultValu
 
 // more information: https://www.hl7.org/fhir/datatypes.html
 export const itemDefaultValue: DefaultValuesType = {
-  string: '',
-  text: '',
+  string: undefined,
+  text: undefined,
   'open-choice': '',
-  boolean: 'false',
-  decimal: 0.0,
-  integer: 0,
+  boolean: '',
+  decimal: undefined,
+  integer: undefined,
   date: '2021-11-04',
   dateTime: '2021-11-04T00:00:00',
   time: '00:00:00',
-  url: '',
+  url: undefined,
   reference: '',
   attachment: '',
-  quantity: 0,
+  quantity: undefined,
   group: '',
   display: '',
-  question: '',
+  question: undefined,
 };
 
 export default getField;

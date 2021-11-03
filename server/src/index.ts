@@ -13,6 +13,8 @@ app.get('/api/status', (_, res) => {
   res.json({ status: 'running' });
 });
 
+app.use(express.json());
+
 app.use('/api', router);
 
 if (process.env.NODE_ENV === 'production') {

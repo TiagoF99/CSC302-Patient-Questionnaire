@@ -66,9 +66,9 @@ const generateForm = (
   values: DefaultValuesType,
 ) => {
   const questions: any = [];
-  let enabled = checkItemEnabled(items, values);
+  const enabled = checkItemEnabled(items, values);
   items.forEach((item: ItemType) => {
-    let enable = enabled[item.linkId]; 
+    const enable = enabled[item.linkId];
     if (enable) {
       if (item.type === 'group') {
         questions.push(generateQuestion(item, touched, errors, values)); // add div elements for group which may have items
@@ -170,10 +170,13 @@ const MyForm = withFormik<MyFormProps, DefaultValuesType>({
         errors[key] = 'Required';
       }
       if (item.type === 'integer' && !Number.isInteger(values[key])) {
+        console.log(values[key]);
+        console.log(values);
+        console.log(key);
         errors[key] = 'Value must be an Integer';
       }
       if ('maxLength' in item && item.maxLength < values[key].length) {
-        errors[key] = 'Value must have a max length less that ' + item.maxLength.toString();
+        errors[key] = `Value must have a max length less that ${item.maxLength.toString()}`;
       }
     });
 
@@ -183,6 +186,7 @@ const MyForm = withFormik<MyFormProps, DefaultValuesType>({
   handleSubmit: (values) => {
     // do submitting things which only triggers once validate passes
     console.log(values);
+    console.log(JSON.stringify(values));
     return values;
   },
 })(InnerForm);

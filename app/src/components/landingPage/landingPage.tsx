@@ -6,7 +6,7 @@ interface Values {
   id: number; // Selected questionnaire's id
 }
 
-const questionnaireIds = ['zika-virus-exposure-assessment', 'bb', , 2653405, 2638765, 2638766, 2638767, 2638768, 2638769]; // hardcoded for now
+const questionnaireIds = [78043, 1167262, 2653405, 2638765, 2638766, 2638767, 2638768, 2638769]; // hardcoded for now
 const idList = questionnaireIds.map((id) => <option value={id}>{id}</option>);
 
 const LandingPage = () => {

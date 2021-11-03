@@ -126,7 +126,14 @@ https://github.com/Vermonster/fhir-kit-client
 
 - Weekly Updates:
     - Tiago:
+        - Completed:
+            - [PR](https://github.com/TiagoF99/CSC302-Patient-Questionnaire/pull/11):
+                - Updated form to integrate question and quantity types
+                - Added integrations for questionnaire enableWhen, enableBehaviour, maxLength fields
+                - Added testing configurations and tests for these changes
+                - Updated all documentation and organized it better      
         - Next Steps:
+            - Work on post mortem and other A2 related things before the deadline 
     - Patrick
         - Completed:
         - Next Steps:

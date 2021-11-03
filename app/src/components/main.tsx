@@ -4,6 +4,7 @@ import Status from './status';
 import LandingPage from './landingPage/landingPage';
 import FormPage from './formPage/formPage';
 import Header from './header/header';
+import main from './main.module.css';
 
 const Main = () => {
   return (
@@ -12,7 +13,7 @@ const Main = () => {
         <Header />
         <Switch>
           <Route exact path="/">
-            <div>
+            <div className={main.container}>
               <LandingPage />
               <Status />
             </div>

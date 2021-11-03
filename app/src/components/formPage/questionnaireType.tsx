@@ -34,7 +34,7 @@ const getField = (obj: ItemType, touched: DefaultValuesType, errors: DefaultValu
     );
     return <Field name={name} component={CustomInputComponent} placeholder="Decimal Value (ex. 2.25)" />;
   }
-  if (type === 'integer') {
+  if (type === 'integer' || type === 'quantity') {
     return (
       <Field
         className={touched[obj.linkId] && errors[obj.linkId] && formPage.fieldErrorHighlight}
@@ -60,6 +60,7 @@ const getField = (obj: ItemType, touched: DefaultValuesType, errors: DefaultValu
   }
   if (type === 'choice') {
     const options: any = [];
+    options.push(<option value="" />);
     (obj.answerOption || []).forEach((valueObj) => {
       if ('valueCoding' in valueObj) {
         options.push(<option value={valueObj.valueCoding.code}>{valueObj.valueCoding.code}</option>);
@@ -67,20 +68,17 @@ const getField = (obj: ItemType, touched: DefaultValuesType, errors: DefaultValu
         options.push(<option value={valueObj.valueString}>{valueObj.valueString}</option>);
       }
     });
-    options.push(<option value="" />);
     return (
       <Field name={name} component="select">
         {options}
       </Field>
     );
   }
-  if (type === 'string' || type === 'text') {
+  if (type === 'string' || type === 'text' || type === 'question') {
     return <Field type="text" name={name} />;
   }
 
-  // string, text, open-choice
-
-  // TODO: missing integration of types question, open-choice
+  // TODO: missing integration of types open-choice
 };
 
 // more information: https://www.hl7.org/fhir/datatypes.html
@@ -88,7 +86,7 @@ export const itemDefaultValue: DefaultValuesType = {
   string: '',
   text: '',
   'open-choice': '',
-  boolean: false,
+  boolean: 'false',
   decimal: 0.0,
   integer: 0,
   date: '2021-11-04',
@@ -97,7 +95,7 @@ export const itemDefaultValue: DefaultValuesType = {
   url: '',
   reference: '',
   attachment: '',
-  quantity: '',
+  quantity: 0,
   group: '',
   display: '',
   question: '',

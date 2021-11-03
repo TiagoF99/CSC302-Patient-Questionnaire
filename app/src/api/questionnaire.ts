@@ -19,7 +19,7 @@ export interface ItemType {
   prefix?: string;
   answerOption?: Array<AnswerOptionType>;
   item?: Array<ItemType>;
-  enableWhen?: Array<{[key: string]: any}>;
+  enableWhen?: Array<{ [key: string]: any }>;
   enableBehaviour?: string;
 }
 
@@ -49,4 +49,15 @@ const getQuestionnaire = async (id: string) => {
   }
 };
 
-export default getQuestionnaire;
+const postQuestionnaire = async (id: string, values: any) => {
+  try {
+    const res = await axios.post(`/api/questionnaire/${id}`, values);
+    const questionnaireResponse: QuestionnaireType = res.data;
+
+    return questionnaireResponse;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export { getQuestionnaire, postQuestionnaire };

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { withFormik, FormikProps, FormikErrors, Form } from 'formik';
 import formPage from './formPage.module.css';
-import { ItemType } from '../../api/questionnaire';
+import { ItemType, postQuestionnaire } from '../../api/questionnaire';
 import getField, { itemDefaultValue, MyFormProps, DefaultValuesType } from './questionnaireType';
 import checkItemEnabled from './enableWhen/enableWhen';
 
@@ -66,9 +66,9 @@ const generateForm = (
   values: DefaultValuesType,
 ) => {
   const questions: any = [];
-  let enabled = checkItemEnabled(items, values);
+  const enabled = checkItemEnabled(items, values);
   items.forEach((item: ItemType) => {
-    let enable = enabled[item.linkId]; 
+    const enable = enabled[item.linkId];
     if (enable) {
       if (item.type === 'group') {
         questions.push(generateQuestion(item, touched, errors, values)); // add div elements for group which may have items
@@ -173,17 +173,18 @@ const MyForm = withFormik<MyFormProps, DefaultValuesType>({
         errors[key] = 'Value must be an Integer';
       }
       if ('maxLength' in item && item.maxLength < values[key].length) {
-        errors[key] = 'Value must have a max length less that ' + item.maxLength.toString();
+        errors[key] = `Value must have a max length less that ${item.maxLength.toString()}`;
       }
     });
 
     return errors;
   },
 
-  handleSubmit: (values) => {
+  handleSubmit: async (values: DefaultValuesType, props) => {
     // do submitting things which only triggers once validate passes
-    console.log(values);
-    return values;
+    const { questionnaire } = props.props;
+    const res = await postQuestionnaire(questionnaire.id, values);
+    console.log(res);
   },
 })(InnerForm);
 

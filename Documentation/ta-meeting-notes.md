@@ -44,3 +44,9 @@
     - Things to note:
         - Improve meeting notes to include meetings with industry partner
         - Professor will doc marks for not showing up to TA meetings 
+ 
+ ### November 4
+- A3 will be out monday, november 8
+- A3 will include a retrospective on A2 similar to post mortem
+- No TA meeting next week during reading week
+- Discussed our A2 progress and what we have left to complete before the deadline

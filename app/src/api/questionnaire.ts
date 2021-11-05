@@ -51,6 +51,7 @@ const getQuestionnaire = async (id: string) => {
 
 const postQuestionnaire = async (id: string, values: any) => {
   try {
+    console.log(values);
     const res = await axios.post(`/api/questionnaire/${id}`, values);
     const questionnaireResponse: QuestionnaireType = res.data;
 

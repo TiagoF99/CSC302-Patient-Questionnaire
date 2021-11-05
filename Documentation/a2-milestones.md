@@ -1,4 +1,4 @@
-## Milestone Progress
+# Milestone Progress
 
 Demonstrated progress towards one or two of your next milestones. Demonstrating progress includes:
 
@@ -8,7 +8,7 @@ Tbd: tiago will add this to meeting notes once he responds...
 
 - Each team member's responsibilities for reaching the milestone, with a status (complete, in progress, not started)
 
-# Milestone 1:
+## Milestone 1:
 
 1. **Team:** Investigate the FHIR Documentation
 
@@ -39,7 +39,7 @@ Tbd: tiago will add this to meeting notes once he responds...
    - Can be a hardcoded ID in beginning so not blocked
    - **Completed on: Oct 31**
 
-# Milestone 2:
+## Milestone 2:
 
 1. **Tiago** : Setup page to render form components based on questionnaire Object selected
 
@@ -56,6 +56,6 @@ Tbd: tiago will add this to meeting notes once he responds...
    - Full end to end flow working for certain questionnaires
    - **Completed on: Nov 3**
 
-# Validation Process:
+## Validation Process:
 
 We will know that we have completed the milestone fully once we have completed all of the intended features that we set out to complete. This will include both frontend testing and integration testing to validate it all works correctly. We will also validate our progress with our industry partner to make sure our work is on the right track and progress matches what we have set out to complete.

@@ -1,4 +1,4 @@
-## Features to Implement
+# Features to Implement
 
 A description of the features your project intends to implement (or next steps that you need to pursue) with sub-tasks prioritized. These descriptions should involve:
 

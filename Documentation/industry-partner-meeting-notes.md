@@ -28,3 +28,12 @@ Our industry partner is Alex from Parajuniper
 	- [Questionnaire-Populate](https://build.fhir.org/ig/HL7/sdc/OperationDefinition-Questionnaire-populate.html)
 	- [Questionnaire-Community-Stream](https://chat.fhir.org/#narrow/stream/179255-questionnaire)
 	- [Questionnaire-to-survey](https://github.com/asbi-cds-tools/questionnaire-to-survey)
+
+### November 5th
+- Met async with our industry partner one last time before the submission of Assignment 2 to show him our progress on our application and what we have completed so far as well as how this matches up to the milestones we created
+- We were asked the following questions to which we gave an answer to:
+	- Which FHIR test server are you using? 
+	- How did retrieving the Questionnaires with the ids go?
+	- What's the test coverage like at M2? 
+	- What are your thoughts on creating the UI for questionnaire selection? 
+- Overall he confirmed that we are well on track with our milestones and showing good progress thus far

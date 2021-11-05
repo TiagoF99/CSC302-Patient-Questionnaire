@@ -2,6 +2,8 @@
 
 This application's purpose is to display FHIR Questionnaires, and submit them to a test FHIR server.
 
+App is deployed [here](https://thoughtful-sticks-production.up.railway.app/)
+
 # Assignment 2 documentation
 
 Please find our

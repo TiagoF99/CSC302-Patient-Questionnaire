@@ -2,13 +2,13 @@
 
 Demonstrated progress towards one or two of your next milestones. Demonstrating progress includes:
 
-- Clarity from your industry partner about what constitutes success in this milestone, in a paragraph.
+Clarity from your industry partner about what constitutes success in this milestone, in a paragraph:
 
-Tbd: tiago will add this to meeting notes once he responds...
-
-- Each team member's responsibilities for reaching the milestone, with a status (complete, in progress, not started)
+Based on the conversations we had with our industry partner, a successful milestone is one where we complete all of the tasks we have set out to do as well as fully test and validate it to make sure that it is correct and production ready. We also aimed to have a working MVP for this assignment where a user can go through the entirety of our web application without it yet having all of the fleshed out features we aimed to create. Therefore for this assignment, this is what we agreed with our industr partner on what would constitute a successful assignment. 
 
 ## Milestone 1:
+
+Each team member's responsibilities for reaching the milestone, with a status (complete, in progress, not started):
 
 1. **Team:** Investigate the FHIR Documentation
 

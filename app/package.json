@@ -16,6 +16,7 @@
   },
   "proxy": "http://localhost:8080",
   "devDependencies": {
+    "identity-obj-proxy": "^3.0.0",
     "@babel/core": "^7.15.5",
     "@babel/preset-env": "^7.15.6",
     "@babel/preset-react": "^7.14.5",
@@ -46,7 +47,7 @@
         },
         "globals": {
           "ts-jest": {
-            "tsConfig": "tsconfig.jest.json"
+            "tsconfig": "tsconfig.jest.json"
           },
           "window": {}
         },
@@ -57,13 +58,15 @@
           "js",
           "jsx",
           "json",
-          "node"
+          "node",
+          "module.css",
+          "css"
         ],
         "modulePaths": [
           "<rootDir>"
         ],
         "moduleNameMapper": {
-          ".+\\.(css|styl|less|sass|scss)$": "identity-obj-proxy",
+          ".+\\.(styl|less|sass|scss)$": "identity-obj-proxy",
           ".+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/FileMock.js"
         },
          "transformIgnorePatterns": [

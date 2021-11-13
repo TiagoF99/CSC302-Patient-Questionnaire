@@ -27,6 +27,12 @@ Please find our
 
 Continue reading this README to see what commands to run to install our project on your machines.
 
+### Tests
+
+Please find our frontend component tests at:
+
+- [app tests](app/test)
+
 # Getting Set Up
 
 Once this repository has been cloned, ensure that you have Docker downloaded. If not, please download it for this step.

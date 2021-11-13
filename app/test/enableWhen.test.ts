@@ -1,4 +1,4 @@
-import checkItemEnabled from './enableWhen';
+import checkItemEnabled from '../src/components/formPage/enableWhen/enableWhen';
 
 
 describe('test check enabled', function() {

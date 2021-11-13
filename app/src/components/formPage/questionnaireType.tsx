@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { FormikProps, Field, FieldProps } from 'formik';
 import { ItemType, QuestionnaireType } from '../../api/questionnaire';
-import formPage from './formPage.module.css';
 
 export interface MyFormProps {
   questionnaire: QuestionnaireType;
@@ -25,7 +24,7 @@ const getField = (obj: ItemType, touched: DefaultValuesType, errors: DefaultValu
     );
   }
   if (type === 'decimal' || type === 'quantity') {
-    const CustomInputComponent: React.FC<MyFormProps & FormikProps<DefaultValuesType> & FieldProps> = ({
+    const CustomInputComponent: React.FC<any> = ({
       field,
       ...props
     }) => (
@@ -38,7 +37,7 @@ const getField = (obj: ItemType, touched: DefaultValuesType, errors: DefaultValu
   if (type === 'integer' || type === 'quantity') {
     return (
       <Field
-        className={touched[obj.linkId] && errors[obj.linkId] && formPage.fieldErrorHighlight}
+        className={touched[obj.linkId] && errors[obj.linkId]}
         type="number"
         name={name}
       />

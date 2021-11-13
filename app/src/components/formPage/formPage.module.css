@@ -26,10 +26,6 @@
 	font-weight: bold;
 }
 
-.fieldErrorHighlight {
-	border-color: red !important;
-} 
-
 .formBody {
 	border-left: solid 1px #222222;
     padding: 20px;

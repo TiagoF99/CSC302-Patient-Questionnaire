@@ -149,3 +149,20 @@
       - Added backend validation, construction of QuestionnaireResponses, validation and submission to FHIR server.
     - Next Steps:
       - Start writing backend tests
+
+### Nov 17
+
+- Weekly Updates:
+  - Tiago:
+    - Completed:
+      - [PR](https://github.com/TiagoF99/CSC302-Patient-Questionnaire/pull/13):
+        - added tests for our frontend based api requests and components
+        - Updated some of the configurations to allow for this
+    - Completed:
+    - Next Steps:
+  - Kevin
+    - Completed:
+    - Next Steps:
+  - Rishab
+    - Completed:
+    - Next Steps:

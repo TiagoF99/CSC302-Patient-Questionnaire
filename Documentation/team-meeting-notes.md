@@ -155,11 +155,19 @@
 - Weekly Updates:
   - Tiago:
     - Completed:
-      - [PR](https://github.com/TiagoF99/CSC302-Patient-Questionnaire/pull/13):
-        - added tests for our frontend based api requests and components
-        - Updated some of the configurations to allow for this
-    - Completed:
+        - [PR](https://github.com/TiagoF99/CSC302-Patient-Questionnaire/pull/13):
+            - added tests for our frontend based api requests and components
+            - Updated some of the configurations to allow for this
+        - [PR](https://github.com/TiagoF99/CSC302-Patient-Questionnaire/pull/14):
+            - Added a modal in the frontend to display if a form submission was successful or not and the errors if it was not
+            - Added tests for all frontend based components that were missing tests
+            - Updated other small things like allowing for correct enableWhen data submission validation
+            - Updated some front end styling
     - Next Steps:
+        - Focus on presentation, A3 documents, and other small fixes and updates to application 
+  - Patrick
+     - Completed:
+     - Next Steps:
   - Kevin
     - Completed:
     - Next Steps:

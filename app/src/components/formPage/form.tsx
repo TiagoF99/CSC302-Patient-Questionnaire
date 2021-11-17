@@ -4,6 +4,7 @@ import formPage from './formPage.module.css';
 import { ItemType, postQuestionnaire } from '../../api/questionnaire';
 import getField, { itemDefaultValue, MyFormProps, DefaultValuesType } from './questionnaireType';
 import checkItemEnabled from './enableWhen/enableWhen';
+import { findItemWithId, generateDefaultValues }from './formHelpers';
 
 const generateQuestion = (
   obj: ItemType,
@@ -84,31 +85,6 @@ const generateForm = (
   return questions;
 };
 
-const findItemWithId = (id: string, items: Array<ItemType>): DefaultValuesType => {
-  let found = false;
-  let curr = items[0];
-  for (let i = 0; i < items.length; i += 1) {
-    const item = items[i];
-
-    if (item.linkId === id) {
-      found = true;
-      curr = item;
-      break;
-    } else if (item.type === 'group') {
-      const obj = findItemWithId(id, item.item || []);
-      if (obj.found) {
-        found = true;
-        curr = obj.item;
-        break;
-      }
-    }
-  }
-
-  return {
-    found,
-    item: curr,
-  };
-};
 
 const InnerForm = (props: MyFormProps & FormikProps<DefaultValuesType>) => {
   const { touched, errors, isSubmitting, questionnaire, values } = props;
@@ -116,7 +92,7 @@ const InnerForm = (props: MyFormProps & FormikProps<DefaultValuesType>) => {
     <div className={formPage.formContainer}>
       <Form className={formPage.form}>
         <h1 className={formPage.formHeader}>{questionnaire.title}</h1>
-        <h3>{questionnaire.description}</h3>
+        <h2>{questionnaire.description}</h2>
         <div className={formPage.formBody}>
           {generateForm(questionnaire.item, touched, errors, values)}
           <div className={formPage.asterixText}>All Fields with an * are required.</div>
@@ -129,33 +105,12 @@ const InnerForm = (props: MyFormProps & FormikProps<DefaultValuesType>) => {
   );
 };
 
-const generateDefaultValues = (items: Array<ItemType>) => {
-  let defaultValues: DefaultValuesType = {};
-
-  for (let i = 0; i < items.length; i += 1) {
-    const item = items[i];
-    if (item.type === 'group') {
-      const obj = generateDefaultValues(item.item || []);
-      defaultValues = { ...defaultValues, ...obj };
-      defaultValues[item.linkId] = itemDefaultValue[item.type];
-    } else if (item.type === 'choice') {
-      // set default value to be first option
-      defaultValues[item.linkId] = '';
-      // defaultValues[item.linkId] = (item.answerOption || [])[0].valueString;
-    } else {
-      defaultValues[item.linkId] = itemDefaultValue[item.type];
-    }
-  }
-
-  return defaultValues;
-};
 
 // Wrap our form with the withFormik HoC
 const MyForm = withFormik<MyFormProps, DefaultValuesType>({
   // Transform outer props into form values
   mapPropsToValues: (props) => {
     const items = props.questionnaire.item;
-    console.log(items);
     return generateDefaultValues(items);
   },
 
@@ -172,6 +127,9 @@ const MyForm = withFormik<MyFormProps, DefaultValuesType>({
       if (item.type === 'integer' && !Number.isInteger(values[key])) {
         errors[key] = 'Value must be an Integer';
       }
+      if ('required' in item && item.required && item.type === 'boolean' && values[key] === '') {
+        errors[key] = 'A value must be selected';
+      }
       if ('maxLength' in item && item.maxLength < values[key].length) {
         errors[key] = `Value must have a max length less that ${item.maxLength.toString()}`;
       }
@@ -182,10 +140,27 @@ const MyForm = withFormik<MyFormProps, DefaultValuesType>({
 
   handleSubmit: async (values: DefaultValuesType, props) => {
     // do submitting things which only triggers once validate passes
+
     const { questionnaire } = props.props;
+    const items = questionnaire.item;
+
+    // only submit values that have been enabled so we only validate those values
+    const enabled = checkItemEnabled(items, values);
+    Object.keys(values).forEach((id: string) => {
+      const enable = enabled[id];
+      if (!enable) {
+        values[id] = undefined;
+      }
+    });
+
     const res = await postQuestionnaire(questionnaire.id, values);
-    console.log(res);
+    if (res.status === 200) {
+      props.props.setFormSubmit({show: true, data: {}, code: 200});
+    } else {
+      props.props.setFormSubmit({show: true, data: res.data, code: res.status});
+    }
+   
   },
 })(InnerForm);
 
-export default MyForm;
+export default MyForm; 

@@ -1,9 +1,12 @@
-import * as React from 'react';
+import React, { Dispatch, SetStateAction } from "react";
 import { FormikProps, Field, FieldProps } from 'formik';
 import { ItemType, QuestionnaireType } from '../../api/questionnaire';
 
+type Dispatcher<S> = Dispatch<SetStateAction<S>>;
+
 export interface MyFormProps {
-  questionnaire: QuestionnaireType;
+  questionnaire: QuestionnaireType,
+  setFormSubmit:  Dispatch<SetStateAction<{show: boolean, data: {[key: string]: any}, code: number}>>
 }
 
 export interface DefaultValuesType {

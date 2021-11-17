@@ -1,6 +1,7 @@
 const { sanitizeUrl } = require('@braintree/sanitize-url');
 
 const validateQuestion = (question: any, values: any) => {
+  
   const errors: any = {};
   if (
     question.required &&
@@ -16,7 +17,7 @@ const validateQuestion = (question: any, values: any) => {
   } else if (question.type === 'boolean' && values[question.linkId] !== 'true' && values[question.linkId] !== 'false') {
     // boolean
     errors[question.linkId] = `This field is not a boolean`;
-  } else if (question.type === 'decimal' && typeof values[question.linkId] !== 'number') {
+  } else if ((question.type === 'decimal' || question.type === 'quantity') && typeof values[question.linkId] !== 'number') {
     // decimal
     errors[question.linkId] = `This field is not a decimal`;
   } else if (
@@ -111,6 +112,7 @@ const validateQuestion = (question: any, values: any) => {
 
   // Have not implemented choice - too weird
   // enable whens - question has no data when not enabled
+  // ^ see components/formpage/enableWhen -> i did some weird shit to make sure they dont show up when not enabled (might be helpful)
 
   return errors;
 };
@@ -129,10 +131,12 @@ const validateQuestionnaire = (questionnaireItems: any, values: any) => {
       if (item.type === 'group') {
         questionStack.push(item.item);
       } else {
-        errors = { ...validateQuestion(item, values), ...errors };
+        if (item.linkId in values) {
+          errors = { ...validateQuestion(item, values), ...errors };
 
-        if ('item' in item) {
-          questionStack.push(item.item);
+          if ('item' in item) {
+            questionStack.push(item.item);
+          }
         }
       }
     }

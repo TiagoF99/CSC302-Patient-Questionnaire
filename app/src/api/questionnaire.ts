@@ -50,14 +50,12 @@ const getQuestionnaire = async (id: string) => {
 };
 
 const postQuestionnaire = async (id: string, values: any) => {
-  try {
-    const res = await axios.post(`/api/questionnaire/${id}`, values);
-    const questionnaireResponse: QuestionnaireType = res.data;
-
-    return questionnaireResponse;
-  } catch (err) {
-    console.log(err);
-  }
-};
+    try {
+      const res = await axios.post(`/api/questionnaire/${id}`, values);
+      return res;
+    } catch (err) {
+      return err.response;
+    }
+}
 
 export { getQuestionnaire, postQuestionnaire };

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Status from './status';
 import LandingPage from './landingPage/landingPage';

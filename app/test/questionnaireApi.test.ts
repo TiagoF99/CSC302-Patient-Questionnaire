@@ -85,17 +85,12 @@ describe('test questionnaire requests', function() {
 		}
 
 		const mockedGet = jest.spyOn(axios, "post").mockImplementation(() => Promise.resolve({data: questionnaire}));
-
 		const res = await postQuestionnaire("id", {});
-
+		
 	 	expect(mockedGet).toBeCalledWith('/api/questionnaire/id', {});
 		expect(axios.post).toHaveBeenCalledTimes(2);
 
-		expect(res).toEqual({
-	        title: 'dummy title',
-	        description: 'dummy desc',
-	        id: '1',
-	        item: [ { linkId: '11', text: 'text item', type: 'string' } ]
-      })
+		expect(res.data.title).toEqual('dummy title');
+		expect(res.data.id).toEqual('1');
 	});
 })

@@ -48,8 +48,10 @@ const postQuestionnaire = async (req: Request, res: Response) => {
   }
 
   const validationErrors = validateQuestionnaire(questionnaireData.item, req.body);
-  if (validationErrors.length > 0) {
-    return res.status(400).json(validationErrors);
+  if (Object.keys(validationErrors).length > 0) {
+    console.log(validationErrors);
+    const resi = res.status(400).json(validationErrors);
+    return resi;
   }
 
   const questionnaireResponse = constructResponse(questionnaireData, req.body);

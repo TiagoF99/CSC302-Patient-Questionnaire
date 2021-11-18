@@ -50,3 +50,8 @@
 - A3 will include a retrospective on A2 similar to post mortem
 - No TA meeting next week during reading week
 - Discussed our A2 progress and what we have left to complete before the deadline
+
+
+### November 18
+- Talked about responsibility division for A3
+- All team members discussed what we have been/will be working on for A3 which includes a major emphasis on finishing features and including tests

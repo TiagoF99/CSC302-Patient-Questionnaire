@@ -55,3 +55,8 @@
 ### November 18
 - Talked about responsibility division for A3
 - All team members discussed what we have been/will be working on for A3 which includes a major emphasis on finishing features and including tests
+
+### November 25
+- More information regarding individual interviews will be available next lecture
+- Industry Partner will be available next lecture
+- No team progress updates this week but everything is going well regarding a3

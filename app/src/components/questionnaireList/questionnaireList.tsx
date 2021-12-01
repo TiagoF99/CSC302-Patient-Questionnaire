@@ -83,6 +83,7 @@ const QuestionnaireList = () => {
                       desc={res.description}
                       date={res.date}
                       id={res.id}
+                      version={res.version}
                     />
             </div>)})}
 

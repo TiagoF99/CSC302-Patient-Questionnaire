@@ -136,11 +136,9 @@
     - Next Steps:
       - Work on post mortem and other A2 related things before the deadline
   - Patrick
-    - Completed:
-    - Next Steps:
+    - No updates
   - Kevin
-    - Completed:
-    - Next Steps:
+    - No updates
   - Rishab
     - Completed:
       - [PR](https://github.com/TiagoF99/CSC302-Patient-Questionnaire/pull/10)
@@ -166,11 +164,32 @@
     - Next Steps:
         - Focus on presentation, A3 documents, and other small fixes and updates to application 
   - Patrick
-     - Completed:
-     - Next Steps:
+     - No updates
   - Kevin
+    - No updates
+  - Rishab
+    - No updates
+
+### December 01
+
+Weekly Updates:
+  - Tiago:
     - Completed:
-    - Next Steps:
+        - Worked on the A3 docs for the feature implementations and post mortem of A2
+        - Helped work on the presentation
+  - Patrick
+      - Completed: 
+          - Led the completion of the presentation
+          - Added backend testing for the validation and error checking methods
+  - Kevin
+    - Completed
+        - Added infinite scrolling and searching to the landing page so that users can search and filter through a list of questionnaires that they can select to fill out
+        - Updated the frontend UI to make it look more appealing 
   - Rishab
     - Completed:
-    - Next Steps:
+        - [PR](https://github.com/TiagoF99/CSC302-Patient-Questionnaire/pull/16)
+            - Added the integration for a local FHIR server that can be run through docker 
+            - Added backend testing for the API requests in the backend  
+- Next steps includes finihsing up any necessary changes and polishing the A3 documents and presentation
+
+

@@ -7,7 +7,6 @@ import router from './routes';
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 8080;
 
 app.get('/api/status', (_, res) => {
   res.json({ status: 'running' });
@@ -25,7 +24,4 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`FHIR Questionnaire app listening at http://localhost:${port}`);
-});
+export default app;

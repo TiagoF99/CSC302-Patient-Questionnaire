@@ -3,3 +3,4 @@
 **/.parcel-cache
 **/dist
 .vscode/launch.json
+**/coverage

@@ -37,3 +37,7 @@ Our industry partner is Alex from Parajuniper
 	- What's the test coverage like at M2? 
 	- What are your thoughts on creating the UI for questionnaire selection? 
 - Overall he confirmed that we are well on track with our milestones and showing good progress thus far
+
+### November 29
+- Industry partner shared a github [repo](https://github.com/hapifhir/hapi-fhir-jpaserver-starter) that will allow us to run our own FHIR server locally instead of relying on the HAPI FHIR server since it is frequently down and so our project cannot function properly by not being able to pull and submit questionnaires. 
+- Industry Partner shared that our project progress is well and we are on track to meet the expectations we set for ourselves in the beginning of the term

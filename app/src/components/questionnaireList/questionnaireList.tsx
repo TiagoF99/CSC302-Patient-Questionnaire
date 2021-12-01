@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import QuestionnaireCard from '../questionnaireCard/questionnaireCard';
 import InfiniteScroll from "react-infinite-scroll-component";
 import questionnaireList from './questionnaireList.module.css';
 
@@ -9,9 +11,9 @@ const QuestionnaireList = () => {
   const [questionnaires, setQuestionnaires] = useState([]);
   const [nextUrl, setNextUrl] = useState('');
   const [hasMore, setHasMore] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
-
     // Fetch the first ten questionnaires
     const fetchQuestionnaires = async () => {
       const res = await axios.get(`/api/questionnairepage`);
@@ -28,12 +30,6 @@ const QuestionnaireList = () => {
 
   const fetchNext = async () => {
     const res = await axios.get(nextUrl);
-    // console.log(res)
-    // const questionnaireList = res.data.entry;
-    // const next = res.data.link[1].url;
-
-    // setNextUrl(next)
-    
     return res.data;
   };
 
@@ -62,9 +58,16 @@ const QuestionnaireList = () => {
     setQuestionnaires([...questionnaires, ...nextQuestionnaires]);
   };
 
+  // Route user to form page of the questionnaire they selected
+  const handleCardClick = (id) => {
+    history.push({
+      pathname: `/form`,
+      search: `?id=${id}`,
+    });
+  }
+
   return (
     <div className={questionnaireList}>
-      list
       <InfiniteScroll
         dataLength={questionnaires.length}
         next={handleScroll}
@@ -73,9 +76,15 @@ const QuestionnaireList = () => {
         endMessage={<h4>All questionnaires loaded.</h4>}
       >   
         {questionnaires.map((q) => {
-            return <h4>{q.resource.id} {q.resource.title}</h4>;
-            // if title use title, if no title, use name
-          })}
+          const res = q.resource;
+            return (<div onClick={() => handleCardClick(q.resource.id)}>
+                      <QuestionnaireCard 
+                      title={res.title}
+                      desc={res.description}
+                      date={res.date}
+                      id={res.id}
+                    />
+            </div>)})}
 
       </InfiniteScroll>
     </div>

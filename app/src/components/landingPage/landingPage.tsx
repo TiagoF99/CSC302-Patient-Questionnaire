@@ -1,6 +1,7 @@
 import React from 'react';
 import { Formik, Field, Form, FormikHelpers } from 'formik';
 import { useHistory } from 'react-router-dom';
+import QuestionnaireList from '../questionnaireList/questionnaireList';
 
 interface Values {
   id: number; // Selected questionnaire's id
@@ -16,7 +17,8 @@ const LandingPage = () => {
   return (
     <div>
       <h1>Select a questionnaire by id</h1>
-      <Formik
+      <QuestionnaireList/>
+      {/* <Formik
         initialValues={{
           id: questionnaireIds[0],
         }}
@@ -36,7 +38,7 @@ const LandingPage = () => {
 
           <button type="submit">Submit</button>
         </Form>
-      </Formik>
+      </Formik> */}
     </div>
   );
 };

@@ -182,9 +182,11 @@ Weekly Updates:
           - Led the completion of the presentation
           - Added backend testing for the validation and error checking methods
   - Kevin
-    - Completed
-        - Added infinite scrolling and searching to the landing page so that users can search and filter through a list of questionnaires that they can select to fill out
-        - Updated the frontend UI to make it look more appealing 
+    - Completed:
+        - [PR](https://github.com/TiagoF99/CSC302-Patient-Questionnaire/pull/17) 
+            - Added infinite scrolling to the landing page so that users can look through a list of questionnaires that they can select to fill out
+            - Added a field where users can manually input a Questionnaire ID to complete
+            - Updated the frontend UI to make it look more appealing 
   - Rishab
     - Completed:
         - [PR](https://github.com/TiagoF99/CSC302-Patient-Questionnaire/pull/16)

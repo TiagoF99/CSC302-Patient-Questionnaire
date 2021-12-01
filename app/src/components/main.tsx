@@ -14,8 +14,8 @@ const Main = () => {
         <Switch>
           <Route exact path="/">
             <div className={main.container}>
-              <LandingPage />
               <Status />
+              <LandingPage />
             </div>
           </Route>
           <Route exact path="/form">

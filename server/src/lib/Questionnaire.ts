@@ -1,5 +1,7 @@
 const { sanitizeUrl } = require('@braintree/sanitize-url');
 
+// Good future idea: add another level of validation/sanitization using Validatorjs
+
 const safeStringRegx = /[ \r\n\t\S]+/;
 const dateRegx = /([0-9]([0-9]([0-9][1-9]|[1-9]0)|[1-9]00)|[1-9]000)(-(0[1-9]|1[0-2])(-(0[1-9]|[1-2][0-9]|3[0-1]))?)?/;
 const dateTimeRegx =
@@ -13,28 +15,49 @@ const validateQuestion = (question: any, values: any) => {
 
   if (
     question.required &&
-    (!(question.linkId in values) || values[question.linkId] === '' || values[question.linkId] === undefined)
+    (!(question.linkId in values) ||
+      values[question.linkId] === '' ||
+      values[question.linkId] === undefined ||
+      values[question.linkId] === null)
   ) {
     // required
     errors[question.linkId] = 'This field requires a non-empty answer.';
-  } else if ('maxLength' in question && values[question.linkId].length > question.maxLength) {
+  } else if (
+    'maxLength' in question &&
+    values[question.linkId] && // If there is no value, no need to check length
+    !(
+      values[question.linkId] === undefined || // If value is null/undefined, not meant to be checked
+      values[question.linkId] === null
+    ) &&
+    String(values[question.linkId]).length > question.maxLength
+  ) {
     // maxlength
     errors[question.linkId] = `This field is over max length of ${question.maxLength}`;
   } else if (question.type === 'display' && values[question.linkId]) {
     // display
     errors[question.linkId] = `This field should not have an answer.`;
-  } else if (question.type === 'boolean' && values[question.linkId] !== 'true' && values[question.linkId] !== 'false') {
+  } else if (
+    question.type === 'boolean' &&
+    typeof values[question.linkId] !== 'boolean' &&
+    values[question.linkId] !== 'true' &&
+    values[question.linkId] !== 'false'
+  ) {
     // boolean
     errors[question.linkId] = `This field requires a boolean answer.`;
   } else if (
     (question.type === 'decimal' || question.type === 'quantity') &&
-    typeof values[question.linkId] !== 'number'
+    (typeof values[question.linkId] !== 'number' ||
+      values[question.linkId] === Infinity ||
+      values[question.linkId] === -Infinity)
   ) {
     // decimal or quantity
     errors[question.linkId] = `This field is not a decimal.`;
   } else if (
     question.type === 'integer' &&
-    (typeof values[question.linkId] !== 'number' || values[question.linkId] % 1 !== 0)
+    (typeof values[question.linkId] !== 'number' ||
+      values[question.linkId] % 1 !== 0 ||
+      values[question.linkId] === Infinity ||
+      values[question.linkId] === -Infinity)
   ) {
     // integer
     errors[question.linkId] = `This field is not an integer.`;
@@ -44,11 +67,21 @@ const validateQuestion = (question: any, values: any) => {
       safeStringRegx.test(values[question.linkId]) === false || // This part ensures no weird string inputs
       values[question.linkId].length >= 1048576 - 1) // I believeThis verifies string is < 1MB, including terminating character
   ) {
-    // string or text
-    errors[
-      question.linkId
-    ] = `This field is not a string containing only accepted unicode characters, and below 1MB in size.`;
-  } else if (question.type === 'url' && sanitizeUrl(values[question.linkId]) !== values[question.linkId]) {
+    if (typeof values[question.linkId] === 'number') {
+      // values[question.linkId] = String(values[question.linkId]);
+      errors[question.linkId] = `This field is a number instead of a string. Try casting it to a string instead!`;
+    } else {
+      // string or text
+      errors[
+        question.linkId
+      ] = `This field is not a string containing only accepted unicode characters, and below 1MB in size.`;
+    }
+  } else if (
+    question.type === 'url' &&
+    (typeof values[question.linkId] !== 'string' ||
+      sanitizeUrl(values[question.linkId]) !== values[question.linkId] ||
+      values[question.linkId].length >= 1048576 - 1)
+  ) {
     // url
     errors[question.linkId] = `This field is not a valid/safe url.`;
   } else if (
@@ -253,4 +286,4 @@ const constructResponse = (questionnaireData: any, values: any) => {
   return response;
 };
 
-export { validateQuestionnaire, constructResponse };
+export { validateQuestion, validateQuestionnaire, constructResponse };

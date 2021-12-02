@@ -1,8 +1,6 @@
 // import request from 'supertest';
 import { validateQuestion } from '../lib/Questionnaire';
 
-const { sanitizeUrl } = require('@braintree/sanitize-url');
-
 describe('Validation - Required', () => {
   test('Required with Valid Answer returns no error', () => {
     const question = {
@@ -750,3 +748,5 @@ describe('Validation - url', () => {
     expect(errors).toHaveProperty(question.linkId);
   });
 });
+
+// TODO: Add tests for date, date-time, time, and choice

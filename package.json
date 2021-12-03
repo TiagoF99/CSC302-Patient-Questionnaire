@@ -2,7 +2,7 @@
   "scripts": {
     "web": "npm run start --prefix app",
     "server": "npm run start:prod --prefix server",
-    "test": "npm run test --prefix app",
+    "test": "npm run test --prefix app && npm run test --prefix server",
     "install-all": "npm i --prefix server && npm i --prefix app",
     "build": "npm run build --prefix app"
   },

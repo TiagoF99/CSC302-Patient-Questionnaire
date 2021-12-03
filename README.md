@@ -4,6 +4,13 @@ This application's purpose is to display FHIR Questionnaires, and submit them to
 
 App is deployed [here](https://thoughtful-sticks-production.up.railway.app/)
 
+# Assignment 3 documentation
+
+Please find our
+
+- [Postmortem on A2](Documentation/postmortem-on-a2.md)
+- [A3 final features overview](Documentation/a3-features.md)
+
 # Assignment 2 documentation
 
 Please find our
@@ -22,6 +29,8 @@ Please find our
 - [A1 postmortem](Documentation/a1-postmortem.md)
 - [A2 features to implement](Documentation/a2-features.md)
 - [A2 milestone progress](Documentation/a2-milestones.md)
+- [Postmortem on A2](Documentation/postmortem-on-a2.md)
+- [A3 final features overview](Documentation/a3-features.md)
 - [tech stack discussion](Documentation/tech-stack.md) and
 - [development roadmap](Documentation/development-plan.md) within the [Documentation](Documentation) directory.
 

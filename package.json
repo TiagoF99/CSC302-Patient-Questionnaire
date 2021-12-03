@@ -3,6 +3,8 @@
     "web": "npm run start --prefix app",
     "server": "npm run start:prod --prefix server",
     "test": "npm run test --prefix app && npm run test --prefix server",
+    "test-web": "npm run test --prefix app",
+    "test-server": "npm run test --prefix server",
     "install-all": "npm i --prefix server && npm i --prefix app",
     "build": "npm run build --prefix app"
   },

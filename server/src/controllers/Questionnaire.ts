@@ -80,4 +80,39 @@ const postQuestionnaire = async (req: Request, res: Response) => {
   return res.status(200).json(submitResponse.data);
 };
 
-export { getQuestionnaire, getQuestionnaires, postQuestionnaire };
+// Questionnaire Paging API, which uses the pevious/next strings created by the
+// FHIR library to get the next set of questionnaires, or defaults to returning
+// a first page of questionnaires
+type pagingReqQuery = { next: string; previous: string };
+const getQuestionnairesPage = async (req: Request<pagingReqQuery>, res: Response) => {
+  const { next, previous } = req.query;
+
+  try {
+    // Ensure string types of previous/next
+    if ((next && typeof next !== 'string') || (previous && typeof previous !== 'string')) {
+      return res.status(400).json({
+        error: `Failed to get paged questionnaires because next/previous is not a string`,
+      });
+    }
+
+    if (next) {
+      const response = await axios.get(next);
+      return res.json({ response: response.data });
+    }
+
+    if (previous) {
+      const response = await axios.get(previous);
+      return res.json({ response: response.data });
+    }
+
+    // If previous/next are not passed in, do default first paging request
+    const response = await fhirClient.search({ resourceType: 'Questionnaire', searchParams: { _count: 10 } });
+    return res.json({ response });
+  } catch (err: any) {
+    return res.status(400).json({
+      error: `Failed to get paged questionnaires`,
+    });
+  }
+};
+
+export { getQuestionnaire, getQuestionnaires, getQuestionnairesPage, postQuestionnaire };

@@ -33,6 +33,10 @@ Please find our frontend component tests at:
 
 - [app tests](app/test)
 
+Please find our backend server tests at:
+
+- [backend tests](app/server)
+
 # Getting Set Up
 
 Once this repository has been cloned, ensure that you have Docker downloaded. If not, please download it for this step.

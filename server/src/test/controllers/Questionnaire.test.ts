@@ -76,6 +76,33 @@ describe('getQuestionnaire endpoint', () => {
   });
 });
 
+describe('getQuestionnairesPage endpoint', () => {
+  const endpoint = '/api/questionnairepage';
+  test('Status 200', async () => {
+    const mockedFhirSearch = jest
+      .spyOn(fhirClient, 'search')
+      .mockReturnValueOnce(Promise.resolve({ resourceType: 'bundle' }));
+
+    await request(app)
+      .get(endpoint)
+      .then(async (response) => {
+        expect(mockedFhirSearch).toBeCalled();
+        expect(response.statusCode).toBe(200);
+      });
+  });
+
+  test('Status 400', async () => {
+    const mockedFhirSearch = jest.spyOn(fhirClient, 'search').mockRejectedValueOnce(new Error('error'));
+
+    await request(app)
+      .get(endpoint)
+      .then(async (response) => {
+        expect(mockedFhirSearch).toBeCalled();
+        expect(response.statusCode).toBe(400);
+      });
+  });
+});
+
 describe('postQuestionnaire endpoint', () => {
   const endpoint = '/api/questionnaire/123';
 

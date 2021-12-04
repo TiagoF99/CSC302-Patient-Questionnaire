@@ -57,7 +57,6 @@ const postQuestionnaire = async (req: Request, res: Response) => {
   }
 
   const questionnaireResponse = constructResponse(questionnaireData, req.body);
-
   // Pass the questionnaire response through validation, on the FHIR API side
   let validateResponse = { data: {} };
   try {
@@ -69,6 +68,7 @@ const postQuestionnaire = async (req: Request, res: Response) => {
     return res.status(400).json(validateResponse.data);
   }
 
+  console.log(validateResponse);
   // Once validated twice, submit the response
   let submitResponse = { data: {} };
   try {

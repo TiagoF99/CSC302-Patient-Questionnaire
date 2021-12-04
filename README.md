@@ -35,7 +35,7 @@ Please find our frontend component tests at:
 
 Please find our backend server tests at:
 
-- [backend tests](app/server)
+- [backend tests](server/test)
 
 # Getting Set Up
 

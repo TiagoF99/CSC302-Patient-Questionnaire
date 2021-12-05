@@ -17,9 +17,9 @@ const QuestionnaireList = () => {
     // Fetch the first ten questionnaires
     const fetchQuestionnaires = async () => {
       const res = await axios.get(`/api/questionnairepage`);
-      const data = res.data.response;
-      const questionnaireList = data.entry;
-      const next = data.link[1].url; // URL to fetch the next 10 results
+      const data = res.data['response'];
+      const questionnaireList = data['entry'];
+      const next = data['link'][1]['url']; // URL to fetch the next 10 results
 
       setQuestionnaires(questionnaireList);
       setNextUrl(next)
@@ -47,14 +47,14 @@ const QuestionnaireList = () => {
 
   const handleScroll = async () => {
     const data = await fetchNext();
-    if (data.link.length <= 2 && !hasNextURL(data.link)) {
+    if (data['link']['length'] <= 2 && !hasNextURL(data['link'])) {
       setHasMore(false)
       return;
     }
-    const next = data.link[1].url;
+    const next = data['link'][1]['url'];
     setNextUrl(next)
     
-    const nextQuestionnaires = data.entry;
+    const nextQuestionnaires = data['entry'];
     setQuestionnaires([...questionnaires, ...nextQuestionnaires]);
   };
 

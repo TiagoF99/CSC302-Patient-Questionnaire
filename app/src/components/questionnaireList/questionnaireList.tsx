@@ -16,21 +16,43 @@ const QuestionnaireList = () => {
   useEffect(() => {
     // Fetch the first ten questionnaires
     const fetchQuestionnaires = async () => {
-      const res = await axios.get(`/api/questionnairepage`);
-      const data = res.data['response'];
-      const questionnaireList = data['entry'];
-      const next = data['link'][1]['url']; // URL to fetch the next 10 results
-
-      setQuestionnaires(questionnaireList);
-      setNextUrl(next)
+      const res = await axios.get(`/api/questionnairepage`).then((res) => {
+        const data = res.data['response'];
+        const questionnaireList = data['entry'];
+        const next = data['link'][1]['url']; // URL to fetch the next 10 results
+        setQuestionnaires(questionnaireList);
+        setNextUrl(next)
+      })
+        .catch((err) => {
+          if (err.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(err.response.data);
+            console.log(err.response.status);
+            console.log(err.response.headers);
+          } else if (err.request) {
+            // The request was made but no response was received
+            console.log(err.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', err.message);
+          }
+        })
     };
 
     fetchQuestionnaires();
   }, []);
 
   const fetchNext = async () => {
-    const res = await axios.get(nextUrl);
-    return res.data;
+    var data;
+    const res = await axios.get(nextUrl).then((res) => {
+      data = res.data;
+    })
+      .catch((err) => {
+        console.log(err)
+        return
+      });
+    return data
   };
 
   // Check to see if we've reached the end of questionaire results
@@ -41,22 +63,26 @@ const QuestionnaireList = () => {
         hasNext = true;
         break;
       }
-  }
+    }
     return hasNext;
   }
 
   const handleScroll = async () => {
     const data = await fetchNext();
-    if (data['link']['length'] <= 2 && !hasNextURL(data['link'])) {
-      setHasMore(false)
-      return;
-    }
-    const next = data['link'][1]['url'];
-    setNextUrl(next)
-    
-    const nextQuestionnaires = data['entry'];
-    setQuestionnaires([...questionnaires, ...nextQuestionnaires]);
-  };
+    if (data !== null) {
+      // fetchNext did not error out
+      if (data['link']['length'] <= 2 && !hasNextURL(data['link'])) {
+        setHasMore(false)
+        return;
+      }
+      const next = data['link'][1]['url'];
+      setNextUrl(next)
+
+      const nextQuestionnaires = data['entry'];
+      setQuestionnaires([...questionnaires, ...nextQuestionnaires]);
+    };
+  }
+
 
   // Route user to form page of the questionnaire they selected
   const handleCardClick = (id) => {
@@ -74,18 +100,19 @@ const QuestionnaireList = () => {
         hasMore={hasMore}
         loader={<h4>Loading...</h4>}
         endMessage={<h4>All questionnaires loaded.</h4>}
-      >   
+      >
         {questionnaires.map((q) => {
           const res = q.resource;
-            return (<div onClick={() => handleCardClick(q.resource.id)}>
-                      <QuestionnaireCard 
-                      title={res.title}
-                      desc={res.description}
-                      date={res.date}
-                      id={res.id}
-                      version={res.version}
-                    />
-            </div>)})}
+          return (<div onClick={() => handleCardClick(q.resource.id)}>
+            <QuestionnaireCard
+              title={res.title}
+              desc={res.description}
+              date={res.date}
+              id={res.id}
+              version={res.version}
+            />
+          </div>)
+        })}
 
       </InfiniteScroll>
     </div>

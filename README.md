@@ -62,6 +62,8 @@ Start up the docker container
 docker-compose -f local-fhir.yml up --build
 ```
 
+Then you can goto (http://localhost:8080) and see the app's main page.
+
 ## Live HAPI Server
 Start up the docker container
 ```

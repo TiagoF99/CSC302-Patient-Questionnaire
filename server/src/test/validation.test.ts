@@ -1,6 +1,10 @@
 // import request from 'supertest';
 import { validateQuestion } from '../lib/Questionnaire';
 
+/* These tests act as validation criteria for the acceptance criteria for the server-side Questionnaire validation 
+and construction of the QuestionnaireResponse object for submission to FHIR server as defined in our documentation
+https://github.com/TiagoF99/CSC302-Patient-Questionnaire/blob/main/Documentation/a3-features.md */
+
 describe('Validation - Required', () => {
   test('Required with Valid Answer returns no error', () => {
     const question = {

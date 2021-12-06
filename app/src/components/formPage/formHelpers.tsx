@@ -2,7 +2,6 @@ import React from 'react';
 import { ItemType } from '../../api/questionnaire';
 import { itemDefaultValue, DefaultValuesType } from './questionnaireType';
 
-
 const findItemWithId = (id: string, items: Array<ItemType>): DefaultValuesType => {
   let found = false;
   let curr = items[0];
@@ -29,7 +28,6 @@ const findItemWithId = (id: string, items: Array<ItemType>): DefaultValuesType =
   };
 };
 
-
 const generateDefaultValues = (items: Array<ItemType>) => {
   let defaultValues: DefaultValuesType = {};
 
@@ -52,4 +50,3 @@ const generateDefaultValues = (items: Array<ItemType>) => {
 };
 
 export { findItemWithId, generateDefaultValues };
-

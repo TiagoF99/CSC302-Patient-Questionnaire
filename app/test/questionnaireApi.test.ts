@@ -1,96 +1,98 @@
 import { getQuestionnaire, postQuestionnaire } from './../src/api/questionnaire';
 import axios, { AxiosResponse } from 'axios';
 
+/* These tests act as validation criteria for the acceptance criteria for the client-side UI form generation of Questionnaires 
+with validation, type and error checking as defined in our documentation
+https://github.com/TiagoF99/CSC302-Patient-Questionnaire/blob/main/Documentation/a3-features.md */
+
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-describe('test questionnaire requests', function() {
-	it('test get questionnaire called with correct params', async () => {
-		const mockedGet = jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve({data: []}));
+describe('test questionnaire requests', function () {
+  it('test get questionnaire called with correct params', async () => {
+    const mockedGet = jest.spyOn(axios, 'get').mockImplementation(() => Promise.resolve({ data: [] }));
 
-		getQuestionnaire('dummy');
+    getQuestionnaire('dummy');
 
-	 	expect(mockedGet).toBeCalledWith('/api/questionnaire/dummy');
-		expect(axios.get).toHaveBeenCalledTimes(1);
-	});
+    expect(mockedGet).toBeCalledWith('/api/questionnaire/dummy');
+    expect(axios.get).toHaveBeenCalledTimes(1);
+  });
 
-	it('test get questionnaire returns correct object', async () => {
+  it('test get questionnaire returns correct object', async () => {
+    var questionnaire = {
+      title: 'dummy title',
+      description: 'dummy desc',
+      id: '1',
+      item: [
+        {
+          linkId: '11',
+          text: 'text item',
+          type: 'string',
+        },
+      ],
+    };
 
-		var questionnaire = {
-			title: 'dummy title',
-			description: 'dummy desc',
-			id: '1',
-			item: [
-				{
-					linkId: "11",
-				    text: 'text item',
-				    type: 'string'
-				}
-			]
-		}
+    const mockedGet = jest.spyOn(axios, 'get').mockImplementation(() => Promise.resolve({ data: questionnaire }));
 
-		const mockedGet = jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve({data: questionnaire}));
+    const data = await getQuestionnaire('dummy');
 
-		const data = await getQuestionnaire('dummy');
+    expect(data).toEqual({
+      description: 'dummy desc',
+      id: '1',
+      item: [
+        {
+          linkId: '11',
+          text: 'text item',
+          type: 'string',
+        },
+      ],
+      title: 'dummy title',
+    });
+  });
 
-	 	expect(data).toEqual({
-	 		"description": "dummy desc",
-    	   	"id": "1",
-    	   	"item": [
-	         	{
-	           		"linkId": "11",
-	           		"text": "text item",
-	           		"type": "string",
-	         	},
-       		],
-       		"title": "dummy title",
-	 	});
-	});
+  it('test get questionnaire error is correct with default value', async () => {
+    const mockedGet = jest.spyOn(axios, 'get').mockRejectedValue(new Error('error'));
 
-	it('test get questionnaire error is correct with default value', async () => {
+    const data = await getQuestionnaire('dummy');
 
-		const mockedGet = jest.spyOn(axios, "get").mockRejectedValue(new Error('error'));
+    expect(data).toEqual({
+      description: '',
+      id: '',
+      item: [],
+      title: '',
+    });
+  });
 
-		const data = await getQuestionnaire('dummy');
+  it('test post questionnaire called with correct params', async () => {
+    const mockedGet = jest.spyOn(axios, 'post').mockImplementation(() => Promise.resolve({ data: [] }));
 
-	 	expect(data).toEqual({
-	 		"description": "",
-    	    "id": "",
-    	    "item": [],
-    	    "title": "",
-	 	});
-	});
+    postQuestionnaire('id', {});
 
-	it('test post questionnaire called with correct params', async () => {
-		const mockedGet = jest.spyOn(axios, "post").mockImplementation(() => Promise.resolve({data: []}));
+    expect(mockedGet).toBeCalledWith('/api/questionnaire/id', {});
+    expect(axios.post).toHaveBeenCalledTimes(1);
+  });
 
-		postQuestionnaire("id", {});
+  it('test post questionnaire returns correct result', async () => {
+    var questionnaire = {
+      title: 'dummy title',
+      description: 'dummy desc',
+      id: '1',
+      item: [
+        {
+          linkId: '11',
+          text: 'text item',
+          type: 'string',
+        },
+      ],
+    };
 
-	 	expect(mockedGet).toBeCalledWith('/api/questionnaire/id', {});
-		expect(axios.post).toHaveBeenCalledTimes(1);
-	});
+    const mockedGet = jest.spyOn(axios, 'post').mockImplementation(() => Promise.resolve({ data: questionnaire }));
+    const res = await postQuestionnaire('id', {});
 
-	it('test post questionnaire returns correct result', async () => {
-		var questionnaire = {
-			title: 'dummy title',
-			description: 'dummy desc',
-			id: '1',
-			item: [
-				{
-					linkId: "11",
-				    text: 'text item',
-				    type: 'string'
-				}
-			]
-		}
+    expect(mockedGet).toBeCalledWith('/api/questionnaire/id', {});
+    expect(axios.post).toHaveBeenCalledTimes(2);
 
-		const mockedGet = jest.spyOn(axios, "post").mockImplementation(() => Promise.resolve({data: questionnaire}));
-		const res = await postQuestionnaire("id", {});
-		
-	 	expect(mockedGet).toBeCalledWith('/api/questionnaire/id', {});
-		expect(axios.post).toHaveBeenCalledTimes(2);
-
-		expect(res.data.title).toEqual('dummy title');
-		expect(res.data.id).toEqual('1');
-	});
-})
+    expect(res.data.title).toEqual('dummy title');
+    expect(res.data.id).toEqual('1');
+  });
+});

@@ -8,7 +8,7 @@ App is deployed [here](https://thoughtful-sticks-production.up.railway.app/)
 
 Please find our
 
-- [Postmortem on A2](Documentation/postmortem-on-a2.md)
+- [A2 Postmortem](Documentation/a2-postmortem.md)
 - [A3 final features overview](Documentation/a3-features.md)
 
 # Assignment 2 documentation
@@ -40,11 +40,11 @@ Continue reading this README to see what commands to run to install our project 
 
 Please find our frontend component tests at:
 
-- [app tests](app/test)
+- [App tests](app/test)
 
 Please find our backend server tests at:
 
-- [backend tests](server/test)
+- [Backend tests](server/src/test)
 
 # Getting Set Up
 
@@ -54,10 +54,18 @@ Once this repository has been cloned, ensure that you have Docker downloaded. If
 
 To run our project, install [Docker](https://www.docker.com/) for your machine!
 
-Start up the docker container
+Then there are two options you can run our project with, with the [live HAPI FHIR test server]([http:](http://hapi.fhir.org/baseR4)) which has a lot of bad data and is extremely buggy or a local HAPI FHIR server with good data.
 
+## Local HAPI Server
+Start up the docker container
 ```
-docker-compose up --build
+docker-compose -f local-fhir.yml up --build
+```
+
+## Live HAPI Server
+Start up the docker container
+```
+docker-compose -f live-fhir.yml up --build
 ```
 
 Then you can goto (http://localhost:8080) and see the app's main page.
@@ -67,5 +75,5 @@ Then you can goto (http://localhost:8080) and see the app's main page.
 Run the tests in the docker container.
 
 ```
-docker-compose -p tests run --rm main npm run test
+docker-compose -f local-fhir.yml run --rm main npm run test
 ```

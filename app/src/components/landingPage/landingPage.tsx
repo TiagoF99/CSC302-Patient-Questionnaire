@@ -3,17 +3,15 @@ import { Formik, Field, Form } from 'formik';
 import { useHistory } from 'react-router-dom';
 import QuestionnaireList from '../questionnaireList/questionnaireList';
 
-
 const LandingPage = () => {
   const history = useHistory();
 
   return (
+    <div>
+      <h1>Access questionnaire by ID</h1>
       <div>
-        <h1>Access questionnaire by ID</h1>
-        <div>
         <Formik
-          initialValues={{qid: ''}}
-          
+          initialValues={{ qid: '' }}
           onSubmit={(values, actions) => {
             console.log(JSON.stringify(values, null, 2)); // for debugging
             history.push({
@@ -23,14 +21,14 @@ const LandingPage = () => {
           }}
         >
           <Form>
-            <Field name="qid"/>
+            <Field name="qid" />
             <button type="submit">Submit</button>
           </Form>
         </Formik>
       </div>
       <h3>Or..</h3>
       <h1>Select a questionnaire</h1>
-      <QuestionnaireList/>
+      <QuestionnaireList />
     </div>
   );
 };

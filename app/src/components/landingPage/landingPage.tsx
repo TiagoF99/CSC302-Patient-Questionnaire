@@ -2,14 +2,14 @@ import React from 'react';
 import { Formik, Field, Form } from 'formik';
 import { useHistory } from 'react-router-dom';
 import QuestionnaireList from '../questionnaireList/questionnaireList';
-
+import landingPage from './landingPage.module.css';
 
 const LandingPage = () => {
   const history = useHistory();
 
   return (
-      <div>
-        <h1 data-testid="title1">Access questionnaire by ID</h1>
+      <div className={landingPage.body}>
+        <h2 data-testid="title1">Access Questionnaire by ID</h2>
         <div>
         <Formik
           initialValues={{qid: ''}}
@@ -28,8 +28,8 @@ const LandingPage = () => {
           </Form>
         </Formik>
       </div>
-      <h3>Or..</h3>
-      <h1 data-testid="title2">Select a questionnaire</h1>
+      <h3>or..</h3>
+      <h2 data-testid="title2">Select a Questionnaire</h2>
       <QuestionnaireList/>
     </div>
   );

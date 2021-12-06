@@ -1,8 +1,22 @@
 .header {
-	font-size: 200%;
+	font-size: 230%;
 	font-weight: bold;
-	color: #FF5252;
 	font-family: 'Montserrat', sans-serif;
-	background-color: #222222;
-	padding: 20px;
+	background: linear-gradient(-45deg, #85c1ef, #787bdc, #4b4ea4, #79ceed);
+	background-size: 400% 400%;
+	animation: animate-bg 10s ease-in-out;
+	animation-iteration-count: infinite;
+	padding: 30px;
+}
+
+@keyframes animate-bg {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }

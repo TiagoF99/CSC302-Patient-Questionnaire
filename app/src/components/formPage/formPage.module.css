@@ -58,8 +58,7 @@
 
 .formSubmit {
 	margin-top: 10px;
-	width: 100%;
-	padding: 5px 0 5px 0;
+	padding: 5px 10px;
 	background-color: white;
 	border: .5px solid red;
 	border-radius: 5px;

@@ -99,8 +99,9 @@ const QuestionnaireList = () => {
   };
 
   return (
-    <div className={questionnaireList}>
+    <div>
       <InfiniteScroll
+        style={{"overflow": "visible"}}
         dataLength={questionnaires.length}
         next={handleScroll}
         hasMore={hasMore}

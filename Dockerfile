@@ -1,6 +1,6 @@
 FROM node:14
-
 ARG PORT
+ARG FHIR_API
 
 WORKDIR /main
 

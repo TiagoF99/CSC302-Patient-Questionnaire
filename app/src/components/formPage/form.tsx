@@ -4,7 +4,7 @@ import formPage from './formPage.module.css';
 import { ItemType, postQuestionnaire } from '../../api/questionnaire';
 import getField, { itemDefaultValue, MyFormProps, DefaultValuesType } from './questionnaireType';
 import checkItemEnabled from './enableWhen/enableWhen';
-import { findItemWithId, generateDefaultValues }from './formHelpers';
+import { findItemWithId, generateDefaultValues } from './formHelpers';
 
 const generateQuestion = (
   obj: ItemType,
@@ -85,7 +85,6 @@ const generateForm = (
   return questions;
 };
 
-
 const InnerForm = (props: MyFormProps & FormikProps<DefaultValuesType>) => {
   const { touched, errors, isSubmitting, questionnaire, values } = props;
   return (
@@ -104,7 +103,6 @@ const InnerForm = (props: MyFormProps & FormikProps<DefaultValuesType>) => {
     </div>
   );
 };
-
 
 // Wrap our form with the withFormik HoC
 const MyForm = withFormik<MyFormProps, DefaultValuesType>({
@@ -155,12 +153,11 @@ const MyForm = withFormik<MyFormProps, DefaultValuesType>({
 
     const res = await postQuestionnaire(questionnaire.id, values);
     if (res.status === 200) {
-      props.props.setFormSubmit({show: true, data: {}, code: 200});
+      props.props.setFormSubmit({ show: true, data: {}, code: 200 });
     } else {
-      props.props.setFormSubmit({show: true, data: res.data, code: res.status});
+      props.props.setFormSubmit({ show: true, data: res.data, code: res.status });
     }
-   
   },
 })(InnerForm);
 
-export default MyForm; 
+export default MyForm;

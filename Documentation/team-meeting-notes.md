@@ -172,6 +172,11 @@
 
 ### December 01
 
+Team Decisions:
+Team as a whole decided to forego trying to cover 100% of the Questionnaire validation edge cases and instead to focus on ensuring the validation we have built so far that covers the vast majority of Questionnaires works well by adding tests for a better end-product. Team also agreed to skip adding an expansive search to the UI and instead adding a ID search to ensure the project could be properly documented and tested instead. 
+
+These decisions were also made in the light of our discussion with our industry partner, Alex, on November 29th in perhaps running our own HAPI FHIR server instead of relying on the public one due to the unreliability of the public HAPI FHIR server and the amount of invalid data on it. Thus we instead decided to prioritize to ensure our own HAPI FHIR server works well with the project.
+
 Weekly Updates:
   - Tiago:
     - Completed:

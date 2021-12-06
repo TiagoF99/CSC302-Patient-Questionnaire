@@ -1,12 +1,12 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from 'react';
 import { FormikProps, Field, FieldProps } from 'formik';
 import { ItemType, QuestionnaireType } from '../../api/questionnaire';
 
 type Dispatcher<S> = Dispatch<SetStateAction<S>>;
 
 export interface MyFormProps {
-  questionnaire: QuestionnaireType,
-  setFormSubmit:  Dispatch<SetStateAction<{show: boolean, data: {[key: string]: any}, code: number}>>
+  questionnaire: QuestionnaireType;
+  setFormSubmit: Dispatch<SetStateAction<{ show: boolean; data: { [key: string]: any }; code: number }>>;
 }
 
 export interface DefaultValuesType {
@@ -27,10 +27,7 @@ const getField = (obj: ItemType, touched: DefaultValuesType, errors: DefaultValu
     );
   }
   if (type === 'decimal' || type === 'quantity') {
-    const CustomInputComponent: React.FC<any> = ({
-      field,
-      ...props
-    }) => (
+    const CustomInputComponent: React.FC<any> = ({ field, ...props }) => (
       <div>
         <input type="number" step="0.01" {...field} {...props} />
       </div>
@@ -38,13 +35,7 @@ const getField = (obj: ItemType, touched: DefaultValuesType, errors: DefaultValu
     return <Field name={name} component={CustomInputComponent} placeholder="Decimal Value (ex. 2.25)" />;
   }
   if (type === 'integer' || type === 'quantity') {
-    return (
-      <Field
-        className={touched[obj.linkId] && errors[obj.linkId]}
-        type="number"
-        name={name}
-      />
-    );
+    return <Field className={touched[obj.linkId] && errors[obj.linkId]} type="number" name={name} />;
   }
   if (type === 'date') {
     return <Field type="date" name={name} />;

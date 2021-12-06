@@ -9,7 +9,7 @@ const LandingPage = () => {
 
   return (
       <div>
-        <h1>Access questionnaire by ID</h1>
+        <h1 data-testid="title1">Access questionnaire by ID</h1>
         <div>
         <Formik
           initialValues={{qid: ''}}
@@ -23,13 +23,13 @@ const LandingPage = () => {
           }}
         >
           <Form>
-            <Field name="qid"/>
+            <Field name="qid" label='qid'/>
             <button type="submit">Submit</button>
           </Form>
         </Formik>
       </div>
       <h3>Or..</h3>
-      <h1>Select a questionnaire</h1>
+      <h1 data-testid="title2">Select a questionnaire</h1>
       <QuestionnaireList/>
     </div>
   );

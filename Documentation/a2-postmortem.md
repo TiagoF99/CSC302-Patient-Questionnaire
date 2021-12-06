@@ -4,7 +4,8 @@ Here is our [development plan](development-plan.md)
 
 Our main focus for A3 after A2 included a few items.
 
-1. We aimed to finish the users landing page. This required adding both the search and infinite scrolling capabilities. We were able to successfully complete the Infinite scrolling and successfully tested It. However, we had planned to complete a search feature where users can search for a questionnaire based on its title or description but opted to instead add a manual input form where they can manually submit a questionnaire ID to complete due to time constraints and prioritization of testing and documentation.
+1. We aimed to finish the users landing page. This required adding both the search and infinite scrolling capabilities. We were able to successfully complete the Infinite scrolling and successfully tested it. However, we had to pivot our originally planned search feature where users could search for a questionnaire based on its title or description to a manual input form where users can access a questionnare directly through the id. This was because we realized that there isn't an existing FHIR api to help faciliate this and building a search api would require more time than we had since we wanted to prioritize testing and documentation. Futhermore, it would make sense for users to have the id of the questionnare they wanted to access so having a textbox to do that would be user-friendly. 
+
 
 2. We aimed to add testing for both the frontend and backend components. We were successfully able to fully test our frontend and backend components and functions. Due to time constraints, tests were prioritized over other features/improvements because we felt it was more important to a successful product and for the development cycle.
 

@@ -18,12 +18,12 @@ const QuestionnaireList = () => {
       const res = await axios
         .get(`/api/questionnairepage`)
         .then((res) => {
-          const data = res.data.response;
-          const questionnaireList = data.entry;
-          if (data.link.length <= 2 && !hasNextURL(data.link)) {
+          const data = res['data']['response'];
+          const questionnaireList = data['entry'];
+          if (data['link']["length"] <= 2 && !hasNextURL(data['link'])) {
             setHasMore(false);
           } else {
-            const next = data.link[1].url; // URL to fetch the next 10 results
+            const next = data['link'][1]['url']; // URL to fetch the next 10 results
             setNextUrl(next);
           }
 
@@ -54,7 +54,7 @@ const QuestionnaireList = () => {
     const res = await axios
       .get(nextUrl)
       .then((res) => {
-        data = res.data;
+        data = res['data'];
       })
       .catch((err) => {
         console.log(err);
@@ -65,7 +65,7 @@ const QuestionnaireList = () => {
   // Check to see if we've reached the end of questionaire results
   const hasNextURL = (links) => {
     let hasNext = false;
-    for (let i = 0; i < links.length; ++i) {
+    for (let i = 0; i < links['length']; ++i) {
       if (links[i].relation == 'next') {
         hasNext = true;
         break;
@@ -108,10 +108,11 @@ const QuestionnaireList = () => {
         endMessage={<h4>All questionnaires loaded.</h4>}
       >
         {questionnaires.map((q) => {
-          const res = q.resource;
+          const res = q['resource'];
           return (
-            <div onClick={() => handleCardClick(q.resource.id)}>
+            <div onClick={() => handleCardClick(q['resource']['id'])}>
               <QuestionnaireCard
+                key={res.id}
                 title={res.title}
                 desc={res.description}
                 date={res.date}
